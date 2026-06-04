@@ -1164,5 +1164,33 @@ function downloadCanvas(canvas, filename) {
 
 
 </script>
+<script>
+// Init DOB dropdowns after DOM is ready
+(function() {
+  function init() {
+    var dayEl  = document.getElementById('dob-day');
+    var yearEl = document.getElementById('dob-year');
+    if (!dayEl || !yearEl) return;
+    if (dayEl.options.length > 1) return; // already init
+    for (var d = 1; d <= 31; d++) {
+      var o = document.createElement('option');
+      o.value = (d < 10 ? '0' : '') + d;
+      o.textContent = d;
+      dayEl.appendChild(o);
+    }
+    for (var y = 2010; y >= 1940; y--) {
+      var o2 = document.createElement('option');
+      o2.value = y;
+      o2.textContent = y + ' (พ.ศ. ' + (y + 543) + ')';
+      yearEl.appendChild(o2);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
