@@ -575,7 +575,7 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
           <span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>
         </button>
       </div>
-      <p id="img-saving-msg" style="font-size:11px;color:var(--gray);margin-top:8px;display:none">กำลังสร้างรูปภาพ...</p>
+      <p id="img-saving-msg" style="font-size:11px;color:var(--gray);margin-top:8px;display:none;"></p>
     </div>
   </div>
 
@@ -1003,7 +1003,13 @@ function autoFillEmployee(empId) {
         deptMsg.textContent = '';
         document.getElementById('empid-msg').textContent = 'พบข้อมูลพนักงาน / Employee found';
         // Store expected DOB for validation at submit (not shown to user)
-        window._expectedDob = e.dob || '';
+        // Normalize expected DOB to DD/MM/YYYY format
+        var rawExpected = e.dob || '';
+        if (rawExpected && rawExpected.indexOf('GMT') > -1) {
+          var dtmp = new Date(rawExpected);
+          rawExpected = ('0'+dtmp.getDate()).slice(-2)+'/'+('0'+(dtmp.getMonth()+1)).slice(-2)+'/'+dtmp.getFullYear();
+        }
+        window._expectedDob = rawExpected;
         document.getElementById('empid-msg').className   = 'field-msg ok';
         document.getElementById('emp-id').className      = 'form-input success';
       } else if (j.code === 404) {
@@ -1061,10 +1067,21 @@ function onDobSelect() {
   var msg = document.getElementById('dob-msg');
   if (d && m && y) {
     hidden.value = d + '/' + m + '/' + y;
-    msg.textContent = '';
-    msg.className = 'field-msg';
+    // Real-time check if DOB matches expected (if already verified)
+    if (window._expectedDob && hidden.value && hidden.value !== window._expectedDob) {
+      msg.textContent = 'วันเดือนปีเกิดไม่ตรงกับข้อมูล / Does not match records';
+      msg.className = 'field-msg err';
+    } else if (window._expectedDob && hidden.value === window._expectedDob) {
+      msg.textContent = 'วันเดือนปีเกิดถูกต้อง / Correct';
+      msg.className = 'field-msg ok';
+    } else {
+      msg.textContent = '';
+      msg.className = 'field-msg';
+    }
   } else {
     hidden.value = '';
+    msg.textContent = '';
+    msg.className = 'field-msg';
   }
   checkConsent();
 }
@@ -1120,7 +1137,7 @@ function saveAsImage() {
   var btn = document.getElementById('btn-save-img');
   var msg = document.getElementById('img-saving-msg');
   if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> <span>กำลังสร้างรูป...</span>'; }
-  if (msg) msg.style.display = 'block';
+  if (msg) { msg.textContent = 'กำลังสร้างรูปภาพ...'; msg.style.display = 'block'; }
 
   html2canvas(target, {
     scale: 2,
@@ -1144,12 +1161,12 @@ function saveAsImage() {
         downloadCanvas(canvas, filename);
       }
       if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
-      if (msg) msg.style.display = 'none';
+      if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
     });
   }).catch(function(err) {
     alert('ไม่สามารถสร้างรูปภาพได้ กรุณา Screenshot หน้าจอแทน');
     if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
-    if (msg) msg.style.display = 'none';
+    if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
   });
 }
 
