@@ -243,6 +243,7 @@ body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--light);color:v
 }
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
@@ -528,12 +529,13 @@ body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--light);color:v
       <div class="success-timestamp" id="success-ts"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px;">
         <button class="print-btn" onclick="window.print()" style="display:flex;align-items:center;gap:6px;">
-          <span>🖨️</span> <span class="th-txt">พิมพ์หน้านี้</span><span class="en-txt" style="display:none">Print Page</span>
+          <span>🖨️</span> <span>พิมพ์ / Print</span>
         </button>
-        <button class="print-btn" onclick="shareOrCopy()" style="background:#138A5E;display:flex;align-items:center;gap:6px;">
-          <span>📤</span> <span class="th-txt">แชร์ / บันทึก</span><span class="en-txt" style="display:none">Share / Save</span>
+        <button class="print-btn" id="btn-save-img" onclick="saveAsImage()" style="background:#138A5E;display:flex;align-items:center;gap:6px;">
+          <span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>
         </button>
       </div>
+      <p id="img-saving-msg" style="font-size:11px;color:var(--gray);margin-top:8px;display:none">กำลังสร้างรูปภาพ...</p>
     </div>
   </div>
 
@@ -878,6 +880,7 @@ async function submitForm() {
 }
 
 function showSuccess(payload) {
+  _lastPayload = payload;
   document.getElementById('page-form').style.display = 'none';
   const pg = document.getElementById('page-success');
   pg.style.display = 'block';
@@ -1012,34 +1015,58 @@ function validateEmpIdLive(input) {
   updateStepIndicator(); updateSummary(); checkConsent();
 }
 
-function shareOrCopy() {
-  var claimId = document.getElementById('success-claim-id') ? document.getElementById('success-claim-id').textContent : '';
-  var empId   = document.getElementById('success-emp-id') ? document.getElementById('success-emp-id').textContent : '';
-  var plan    = document.getElementById('success-plan') ? document.getElementById('success-plan').textContent : '';
-  var ts      = document.getElementById('success-ts') ? document.getElementById('success-ts').textContent : '';
-  var text    = 'Akara Resources - Flexible Medical Benefits\n'
-    + '================================\n'
-    + 'รหัสพนักงาน: ' + empId + '\n'
-    + 'แผนที่เลือก: ' + plan + '\n'
-    + 'เวลาบันทึก: ' + ts + '\n'
-    + '================================\n'
-    + 'กรุณาเก็บข้อมูลนี้ไว้เป็นหลักฐาน';
+var _lastPayload = {};
 
-  if (navigator.share) {
-    navigator.share({
-      title: 'Akara Benefits - การเลือกแผนสวัสดิการ',
-      text: text
-    }).catch(function() {});
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(function() {
-      alert('คัดลอกข้อมูลแล้ว / Copied to clipboard');
-    }).catch(function() {
-      alert('กรุณา Screenshot หน้าจอเพื่อเก็บไว้เป็นหลักฐาน');
+function saveAsImage() {
+  var target = document.getElementById('page-success');
+  if (!target) { alert('ไม่พบหน้าสำหรับบันทึก'); return; }
+
+  var btn = document.getElementById('btn-save-img');
+  var msg = document.getElementById('img-saving-msg');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> <span>กำลังสร้างรูป...</span>'; }
+  if (msg) msg.style.display = 'block';
+
+  html2canvas(target, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#F5F6FA',
+    logging: false,
+    width: target.scrollWidth,
+    height: target.scrollHeight
+  }).then(function(canvas) {
+    var empId = _lastPayload.empId || 'benefit';
+    var filename = 'Akara-Benefits-' + empId + '.png';
+
+    // Try native share (mobile)
+    canvas.toBlob(function(blob) {
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/png' })] })) {
+        navigator.share({
+          title: 'Akara Benefits - การเลือกแผนสวัสดิการ',
+          files: [new File([blob], filename, { type: 'image/png' })]
+        }).catch(function() { downloadCanvas(canvas, filename); });
+      } else {
+        downloadCanvas(canvas, filename);
+      }
+      if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
+      if (msg) msg.style.display = 'none';
     });
-  } else {
-    alert('กรุณา Screenshot หน้าจอเพื่อเก็บไว้เป็นหลักฐาน / Please screenshot this page');
-  }
+  }).catch(function(err) {
+    alert('ไม่สามารถสร้างรูปภาพได้ กรุณา Screenshot หน้าจอแทน');
+    if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
+    if (msg) msg.style.display = 'none';
+  });
 }
+
+function downloadCanvas(canvas, filename) {
+  var link = document.createElement('a');
+  link.download = filename;
+  link.href = canvas.toDataURL('image/png');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+
 </script>
 </body>
 </html>
