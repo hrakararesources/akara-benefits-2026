@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือสวัสดิการค่ารักษาพยาบาลแบบยืดหยุ่น – Akara Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #0F2D5C;
+  --navy2:  #1A4B8C;
+  --blue:   #2C6FC9;
+  --blue-l: #EBF2FC;
+  --green:  #0A6B47;
+  --green2: #138A5E;
+  --green-l:#E4F5EE;
+  --amber:  #A8490A;
+  --amber2: #D4620E;
+  --amber-l:#FDF0E0;
+  --gold:   #C9A227;
+  --red:    #C0392B;
+  --dark:   #1C1C2E;
+  --mid:    #4A4A6A;
+  --gray:   #6B7280;
+  --light:  #F5F6FA;
+  --border: #DDE3EC;
+  --white:  #FFFFFF;
+  --shadow: 0 2px 16px rgba(15,45,92,.08);
+  --shadow-hover: 0 8px 32px rgba(15,45,92,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Sarabun',sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  font-size:15px;
+  line-height:1.75;
+}
+
+/* ─── LANG TOGGLE ─── */
+.lang-bar{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 32px;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+.lang-bar .brand{color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.5px;}
+.lang-btns{display:flex;gap:6px;}
+.lang-btn{
+  background:transparent;border:1px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.7);font-size:12px;font-weight:600;
+  padding:4px 14px;border-radius:20px;cursor:pointer;
+  font-family:'Sarabun',sans-serif;
+  transition:all .2s;
+}
+.lang-btn.active,.lang-btn:hover{
+  background:var(--gold);border-color:var(--gold);color:var(--navy);
+}
+
+/* ─── HERO ─── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,#1e5fa8 100%);
+  padding:56px 40px 48px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:320px;height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(201,162,39,.15) 0%,transparent 70%);
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-40px;left:10%;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(44,111,201,.25) 0%,transparent 70%);
+}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1;}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,162,39,.2);
+  border:1px solid rgba(201,162,39,.4);
+  color:var(--gold);
+  font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  padding:5px 14px;border-radius:20px;margin-bottom:20px;
+}
+.hero-tag::before{content:'●';font-size:7px;}
+.hero h1{
+  font-family:'Libre Baskerville',serif;
+  color:var(--white);
+  font-size:32px;line-height:1.25;
+  margin-bottom:6px;
+  font-weight:700;
+}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero h2{
+  color:rgba(255,255,255,.65);
+  font-size:16px;font-weight:300;
+  margin-bottom:28px;letter-spacing:.3px;
+}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.hero-pill{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.85);
+  font-size:12px;padding:6px 16px;border-radius:6px;
+}
+.hero-pill strong{color:var(--white);}
+
+/* ─── CONTAINER ─── */
+.container{max-width:900px;margin:0 auto;padding:0 24px;}
+
+/* ─── TOC ─── */
+.toc-wrap{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px 28px;
+  margin:32px auto;
+  max-width:900px;
+  margin-left:auto;margin-right:auto;
+  box-shadow:var(--shadow);
+}
+.toc-title{
+  font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.toc-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;}
+.toc-item{
+  display:flex;align-items:center;gap:10px;
+  padding:6px 0;
+  border-bottom:1px dashed var(--border);
+  text-decoration:none;color:var(--mid);
+  font-size:13px;
+  transition:color .2s;
+}
+.toc-item:hover{color:var(--blue);}
+.toc-num{
+  width:22px;height:22px;
+  background:var(--blue-l);color:var(--blue);
+  border-radius:50%;font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* ─── SECTION ─── */
+.section{
+  background:var(--white);
+  border-radius:14px;
+  padding:36px 40px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+.sec-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:12px;
+}
+.sec-label .num{
+  width:22px;height:22px;background:var(--blue);color:#fff;
+  border-radius:50%;font-size:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.sec-title{
+  font-family:'Libre Baskerville',serif;
+  font-size:22px;color:var(--navy);
+  margin-bottom:4px;line-height:1.3;
+}
+.sec-title-en{font-size:13px;color:var(--gray);font-weight:300;margin-bottom:20px;}
+.sec-divider{height:3px;width:48px;background:var(--blue);border-radius:2px;margin-bottom:20px;}
+
+/* bilingual paragraph */
+.bi-block{margin-bottom:18px;}
+.bi-th{font-size:14.5px;color:var(--dark);line-height:1.8;}
+.bi-en{font-size:12.5px;color:var(--gray);line-height:1.7;margin-top:3px;font-style:italic;}
+
+/* ─── OBJECTIVE LIST ─── */
+.obj-list{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+.obj-item{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--light);border-radius:10px;padding:14px 16px;
+  border-left:4px solid var(--blue);
+}
+.obj-num{
+  width:28px;height:28px;
+  background:var(--blue);color:#fff;
+  border-radius:8px;font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.obj-th{font-size:13.5px;color:var(--dark);font-weight:500;line-height:1.6;}
+.obj-en{font-size:11.5px;color:var(--gray);margin-top:2px;font-style:italic;}
+
+/* ─── ELIGIBILITY BOX ─── */
+.elig-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+.elig-card{
+  background:var(--light);border-radius:10px;padding:16px 18px;
+  border:1px solid var(--border);
+}
+.elig-icon{font-size:22px;margin-bottom:6px;}
+.elig-th{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px;}
+.elig-en{font-size:11px;color:var(--gray);margin-bottom:6px;font-style:italic;}
+.elig-detail{font-size:12.5px;color:var(--mid);line-height:1.7;}
+
+.alert-box{
+  background:var(--amber-l);
+  border:1px solid #F0C080;
+  border-radius:10px;padding:14px 18px;
+  margin-top:14px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.alert-icon{font-size:20px;flex-shrink:0;}
+.alert-th{font-size:13px;font-weight:600;color:var(--amber);margin-bottom:2px;}
+.alert-en{font-size:11px;color:var(--amber2);font-style:italic;}
+.alert-body{font-size:12.5px;color:var(--mid);line-height:1.7;margin-top:4px;}
+
+/* ─── PLAN CARDS ─── */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+.plan-card{
+  border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;
+}
+.plan-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
+.plan-card.featured{border:2px solid var(--green2);}
+.plan-ribbon{
+  background:var(--green);color:#fff;
+  font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  text-align:center;padding:4px 0;
+}
+.plan-head{padding:16px 16px 12px;text-align:center;}
+.pc-p1 .plan-head{background:var(--blue-l);}
+.pc-p2 .plan-head{background:var(--green-l);}
+.pc-p3 .plan-head{background:var(--amber-l);}
+.plan-no{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.pc-p1 .plan-no{color:var(--blue);}
+.pc-p2 .plan-no{color:var(--green2);}
+.pc-p3 .plan-no{color:var(--amber2);}
+.plan-name-th{font-size:14px;font-weight:700;line-height:1.3;margin-bottom:2px;}
+.pc-p1 .plan-name-th{color:var(--navy);}
+.pc-p2 .plan-name-th{color:var(--green);}
+.pc-p3 .plan-name-th{color:var(--amber);}
+.plan-name-en{font-size:10px;color:var(--gray);}
+.plan-body{padding:12px 14px 14px;}
+.pl-sec{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:var(--gray);padding:6px 0 4px;border-bottom:1px solid var(--border);margin-bottom:4px;}
+.pl-row{display:flex;justify-content:space-between;align-items:baseline;padding:3.5px 0;border-bottom:1px dashed #F0F0F0;gap:6px;}
+.pl-row:last-child{border-bottom:none;}
+.pl-label{font-size:10px;color:#444;flex:1;line-height:1.4;}
+.pl-label-en{font-size:8.5px;color:var(--gray);display:block;}
+.pl-val{font-size:11px;font-weight:700;white-space:nowrap;}
+.pc-p1 .pl-val{color:var(--blue);}
+.pc-p2 .pl-val{color:var(--green);}
+.pc-p3 .pl-val{color:var(--amber);}
+.pl-val.none{color:#CCC;font-weight:400;font-size:9.5px;font-style:italic;}
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;}
+.cmp-table thead th{
+  padding:10px 12px;text-align:center;
+  background:var(--navy);color:#fff;font-size:11px;font-weight:600;
+}
+.cmp-table thead th:first-child{text-align:left;background:var(--dark);}
+.cmp-table thead th.h-p1{background:var(--navy2);}
+.cmp-table thead th.h-p2{background:var(--green);}
+.cmp-table thead th.h-p3{background:var(--amber);}
+.cmp-table tr.sec-row td{
+  background:var(--light);
+  font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--mid);padding:7px 12px;
+  border-top:2px solid var(--border);
+}
+.cmp-table tr.data-row td{
+  padding:8px 12px;border-bottom:1px solid var(--border);
+  vertical-align:middle;
+}
+.cmp-table tr.data-row:hover td{background:#FAFBFF;}
+.lbl-cell .lbl-th{font-size:12px;color:var(--dark);font-weight:500;}
+.lbl-cell .lbl-en{font-size:10px;color:var(--gray);}
+.cmp-table td.v-center{text-align:center;}
+.cmp-table td.v-p1 .amt{color:var(--blue);font-weight:700;}
+.cmp-table td.v-p2 .amt{color:var(--green);font-weight:700;}
+.cmp-table td.v-p3 .amt{color:var(--amber);font-weight:700;}
+.cmp-table .none-val{color:#CCC;font-size:10px;font-style:italic;}
+
+/* ─── WELL-BEING SECTION ─── */
+.wb-hero{
+  background:linear-gradient(135deg,var(--amber) 0%,var(--amber2) 100%);
+  border-radius:12px;padding:24px 26px;
+  display:flex;gap:20px;align-items:flex-start;
+  margin-bottom:16px;color:#fff;
+}
+.wb-big-num{
+  font-family:'Libre Baskerville',serif;
+  font-size:42px;font-weight:700;line-height:1;
+  opacity:.9;flex-shrink:0;
+}
+.wb-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+.wb-title-en{font-size:12px;opacity:.8;margin-bottom:10px;}
+.wb-note{font-size:12px;opacity:.75;line-height:1.6;}
+
+.wb-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px;}
+.wb-cat{
+  background:var(--light);border-radius:10px;padding:12px 14px;
+  border:1px solid var(--border);
+}
+.wb-cat-icon{font-size:20px;margin-bottom:5px;}
+.wb-cat-th{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:2px;}
+.wb-cat-en{font-size:10px;color:var(--gray);}
+.wb-cat-detail{font-size:11px;color:var(--mid);line-height:1.6;margin-top:4px;}
+
+/* ─── HOW TO USE ─── */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.use-card{
+  background:var(--light);border-radius:10px;padding:16px 18px;
+  border-left:4px solid var(--blue);
+}
+.use-card.warn{border-left-color:var(--amber);}
+.use-card.success{border-left-color:var(--green2);}
+.use-tag{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.use-card.warn .use-tag{color:var(--amber2);}
+.use-card.success .use-tag{color:var(--green2);}
+.use-th{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.use-en{font-size:11px;color:var(--gray);font-style:italic;margin-bottom:6px;}
+.use-detail{font-size:12px;color:var(--mid);line-height:1.7;}
+
+/* ─── TIMELINE ─── */
+.tl-wrap{position:relative;padding:8px 0 0;}
+.tl-line{
+  position:absolute;left:19px;top:26px;bottom:26px;
+  width:2px;background:var(--border);
+}
+.tl-item{
+  display:flex;gap:20px;align-items:flex-start;
+  margin-bottom:16px;position:relative;
+}
+.tl-dot{
+  width:38px;height:38px;flex-shrink:0;
+  background:var(--blue);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:14px;font-weight:700;
+  box-shadow:0 0 0 4px var(--blue-l);
+  position:relative;z-index:1;
+}
+.tl-dot.done{background:var(--green2);box-shadow:0 0 0 4px var(--green-l);}
+.tl-content{flex:1;background:var(--light);border-radius:10px;padding:12px 16px;border:1px solid var(--border);}
+.tl-date{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:2px;}
+.tl-th{font-size:13.5px;font-weight:600;color:var(--navy);}
+.tl-en{font-size:11px;color:var(--gray);font-style:italic;margin-bottom:4px;}
+.tl-detail{font-size:12px;color:var(--mid);line-height:1.6;}
+
+/* ─── IMPORTANT NOTES ─── */
+.imp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px;}
+.imp-card{
+  border-radius:10px;padding:16px 16px;
+  border:1px solid var(--border);
+}
+.imp-card.blue{background:var(--blue-l);border-color:#C0D8F0;}
+.imp-card.green{background:var(--green-l);border-color:#B0DFCA;}
+.imp-card.amber{background:var(--amber-l);border-color:#F0CC90;}
+.imp-card.red-c{background:#FEF0EE;border-color:#F0B8B0;}
+.imp-icon{font-size:22px;margin-bottom:6px;}
+.imp-th{font-size:12.5px;font-weight:700;margin-bottom:3px;}
+.imp-card.blue .imp-th{color:var(--blue);}
+.imp-card.green .imp-th{color:var(--green);}
+.imp-card.amber .imp-th{color:var(--amber);}
+.imp-card.red-c .imp-th{color:var(--red);}
+.imp-en{font-size:10px;color:var(--gray);font-style:italic;margin-bottom:5px;}
+.imp-detail{font-size:11.5px;color:var(--mid);line-height:1.65;}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--navy);
+  color:rgba(255,255,255,.55);
+  text-align:center;
+  padding:28px 24px;
+  font-size:11.5px;line-height:1.9;
+  margin-top:8px;
+}
+footer .brand{color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin-bottom:4px;}
+footer a{color:var(--gold);text-decoration:none;}
+
+/* ─── BILINGUAL TOGGLE ─── */
+[data-lang="en"] { display:none; }
+body.en-mode [data-lang="th"] { display:none; }
+body.en-mode [data-lang="en"] { display:block; }
+body.en-mode [data-lang="en"].inline { display:inline; }
+[data-lang="en"].inline { display:none; }
+
+/* show both always for bilingual items */
+.bi-th, .bi-en { display:block !important; }
+
+@media(max-width:700px){
+  .plan-grid,.use-grid,.wb-cats,.elig-grid,.imp-grid{grid-template-columns:1fr;}
+  .toc-grid{grid-template-columns:1fr;}
+  .hero{padding:32px 20px;}
+  .hero h1{font-size:22px;}
+  .section{padding:24px 20px;}
+  .hero h2{font-size:13px;}
+}
+
+/* ─── STICKY SELECT BUTTON ─── */
+.sticky-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 999;
+  background: linear-gradient(to top, rgba(15,45,92,1) 60%, rgba(15,45,92,0));
+  padding: 20px 24px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  pointer-events: none;
+}
+.sticky-bar * { pointer-events: all; }
+.sticky-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #C9A227;
+  color: #0F2D5C;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 14px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 24px rgba(201,162,39,.5);
+  transition: all .2s;
+  border: none;
+  cursor: pointer;
+  letter-spacing: .3px;
+}
+.sticky-btn:hover {
+  background: #E8B800;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,162,39,.6);
+}
+.sticky-btn .arrow {
+  font-size: 18px;
+  transition: transform .2s;
+}
+.sticky-btn:hover .arrow { transform: translateX(4px); }
+.sticky-note {
+  color: rgba(255,255,255,.65);
+  font-size: 11px;
+  font-family: 'Sarabun', sans-serif;
+  text-align: center;
+  line-height: 1.5;
+}
+.sticky-note strong { color: rgba(255,255,255,.9); }
+/* add bottom padding to body so content not hidden behind bar */
+body { padding-bottom: 90px !important; }
+
+
+/* ─── STICKY SELECT BUTTON ─── */
+.sticky-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:999;
+  background:linear-gradient(to top,rgba(15,45,92,1) 60%,rgba(15,45,92,0));
+  padding:20px 24px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  pointer-events:none;
+}
+.sticky-bar *{pointer-events:all;}
+.sticky-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#C9A227;color:#0F2D5C;
+  font-family:'Sarabun',sans-serif;font-size:16px;font-weight:700;
+  padding:14px 36px;border-radius:50px;text-decoration:none;
+  box-shadow:0 4px 24px rgba(201,162,39,.5);
+  transition:all .2s;border:none;cursor:pointer;letter-spacing:.3px;
+}
+.sticky-btn:hover{background:#E8B800;transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,162,39,.6);}
+.sticky-btn .arrow{font-size:18px;transition:transform .2s;}
+.sticky-btn:hover .arrow{transform:translateX(4px);}
+.sticky-note{color:rgba(255,255,255,.65);font-size:11px;font-family:'Sarabun',sans-serif;text-align:center;line-height:1.5;}
+.sticky-note strong{color:rgba(255,255,255,.9);}
+body{padding-bottom:90px!important;}
+@media(max-width:600px){
+  .sticky-btn{font-size:14px;padding:12px 24px;}
+  .sticky-note{font-size:10px;}
+  .sticky-bar{padding:14px 16px 18px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- LANG TOGGLE -->
+<div class="lang-bar">
+  <span class="brand">Akara Resources · Chatree Gold Mine</span>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('th')" id="btn-th">🇹🇭 ภาษาไทย</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">🇬🇧 English</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-lang="th">คู่มือสวัสดิการพนักงาน</div>
+    <div class="hero-tag" data-lang="en">Employee Benefit Guide</div>
+
+    <h1 data-lang="th">โครงการค่ารักษาพยาบาล<br><em>แบบยืดหยุ่น</em></h1>
+    <h1 data-lang="en">Flexible Medical<br><em>Benefits Program</em></h1>
+
+    <h2 data-lang="th">One-Year Pilot Program · ระยะเวลา 1 ปี</h2>
+    <h2 data-lang="en">โครงการนำร่อง 1 ปี · เลือกแผนที่ใช่สำหรับคุณ</h2>
+
+    <div class="hero-pills">
+      <div class="hero-pill"><strong data-lang="th">เริ่มต้น</strong><strong data-lang="en">Starts</strong> 1 July 2026</div>
+      <div class="hero-pill"><strong data-lang="th">สิ้นสุด</strong><strong data-lang="en">Ends</strong> 30 June 2027</div>
+      <div class="hero-pill"><strong data-lang="th">เลือกได้</strong><strong data-lang="en">Choose</strong> 3 <span data-lang="th">แผน</span><span data-lang="en">Plans</span></div>
+      <div class="hero-pill"><strong data-lang="th">เลือกแผน</strong><strong data-lang="en">Enrollment</strong> 15–24 <span data-lang="th">มิถุนายน 2569</span><span data-lang="en">June 2026</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="container">
+  <div class="toc-wrap">
+    <div class="toc-title" data-lang="th">สารบัญ</div>
+    <div class="toc-title" data-lang="en">Contents</div>
+    <div class="toc-grid">
+      <a href="#s1" class="toc-item"><span class="toc-num">1</span><span data-lang="th">วัตถุประสงค์ของโครงการ</span><span data-lang="en">Program Objectives</span></a>
+      <a href="#s5" class="toc-item"><span class="toc-num">5</span><span data-lang="th">รายละเอียดสิทธิประโยชน์</span><span data-lang="en">Benefit Details</span></a>
+      <a href="#s2" class="toc-item"><span class="toc-num">2</span><span data-lang="th">คุณสมบัติและเงื่อนไข</span><span data-lang="en">Eligibility &amp; Conditions</span></a>
+      <a href="#s6" class="toc-item"><span class="toc-num">6</span><span data-lang="th">Well-Being Budget</span><span data-lang="en">Well-Being Budget</span></a>
+      <a href="#s3" class="toc-item"><span class="toc-num">3</span><span data-lang="th">แผนสวัสดิการ 3 แบบ</span><span data-lang="en">3 Benefit Plan Options</span></a>
+      <a href="#s7" class="toc-item"><span class="toc-num">7</span><span data-lang="th">ขั้นตอนการเลือกแผน</span><span data-lang="en">Enrollment Timeline</span></a>
+      <a href="#s4" class="toc-item"><span class="toc-num">4</span><span data-lang="th">ตารางเปรียบเทียบแผน</span><span data-lang="en">Plan Comparison Table</span></a>
+      <a href="#s8" class="toc-item"><span class="toc-num">8</span><span data-lang="th">ข้อสำคัญที่ต้องทราบ</span><span data-lang="en">Important Notes</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: OBJECTIVES -->
+<div class="container" id="s1">
+  <div class="section">
+    <div class="sec-label"><span class="num">1</span><span data-lang="th">วัตถุประสงค์ของโครงการ</span><span data-lang="en">Program Objectives</span></div>
+    <div class="sec-title" data-lang="th">ทำไมบริษัทจึงจัดโครงการนี้?</div>
+    <div class="sec-title" data-lang="en">Why This Program?</div>
+    <div class="sec-title-en" data-lang="th">Why This Program?</div>
+    <div class="sec-title-en" data-lang="en">เหตุผลของโครงการ</div>
+    <div class="sec-divider"></div>
+
+    <div class="bi-block">
+      <div class="bi-th" data-lang="th">บริษัทมีความมุ่งมั่นในการพัฒนาและยกระดับระบบสวัสดิการพนักงานอย่างต่อเนื่อง เพื่อให้สอดคล้องกับความต้องการด้านสุขภาพ รูปแบบการดำเนินชีวิต และช่วงชีวิต (Life Stages) ที่แตกต่างกันของพนักงาน</div>
+      <div class="bi-en" data-lang="en">The Company is committed to continuously developing and enhancing employee welfare programs to align with employees' diverse healthcare needs, lifestyle patterns, and different life stages.</div>
+    </div>
+
+    <div class="obj-list">
+      <div class="obj-item">
+        <div class="obj-num">1</div>
+        <div>
+          <div class="obj-th" data-lang="th">เพิ่มทางเลือกด้านสวัสดิการสุขภาพให้สอดคล้องกับความต้องการและลักษณะการใช้สิทธิประโยชน์ของพนักงานที่มีความแตกต่างกัน</div>
+          <div class="obj-en" data-lang="en">Enhance healthcare benefit flexibility by providing options aligned with individual needs and utilization patterns.</div>
+        </div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num">2</div>
+        <div>
+          <div class="obj-th" data-lang="th">ปรับสมดุลโครงสร้างความคุ้มครองด้านการรักษาพยาบาล โดยเพิ่มระดับความคุ้มครองกรณีผู้ป่วยใน (IPD) ให้เหมาะสมกับค่าใช้จ่ายทางการแพทย์และสภาพแวดล้อมด้านการรักษาพยาบาลในปัจจุบัน</div>
+          <div class="obj-en" data-lang="en">Optimize the medical benefits structure by enhancing inpatient (IPD) coverage to better reflect current healthcare costs and medical treatment environments.</div>
+        </div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num">3</div>
+        <div>
+          <div class="obj-th" data-lang="th">ส่งเสริมการดูแลสุขภาพเชิงป้องกันและการสร้างเสริมสุขภาวะ (Well-being) ผ่านทางเลือกด้านสวัสดิการที่ครอบคลุมมากยิ่งขึ้น</div>
+          <div class="obj-en" data-lang="en">Promote preventive healthcare and overall well-being through expanded benefit options.</div>
+        </div>
+      </div>
+      <div class="obj-item">
+        <div class="obj-num">4</div>
+        <div>
+          <div class="obj-th" data-lang="th">ประเมินผลการดำเนินโครงการและรับฟังความคิดเห็นของพนักงาน เพื่อนำข้อมูลไปใช้ประกอบการพิจารณาแนวทางการพัฒนาสวัสดิการของบริษัทในอนาคต</div>
+          <div class="obj-en" data-lang="en">Assess program effectiveness and collect employee feedback for future benefits development and policy improvement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: ELIGIBILITY -->
+<div class="container" id="s2">
+  <div class="section">
+    <div class="sec-label"><span class="num">2</span><span data-lang="th">คุณสมบัติและเงื่อนไขโครงการ</span><span data-lang="en">Eligibility &amp; Program Conditions</span></div>
+    <div class="sec-title" data-lang="th">ใครมีสิทธิ์เข้าร่วมโครงการ?</div>
+    <div class="sec-title" data-lang="en">Who Is Eligible?</div>
+    <div class="sec-title-en" data-lang="th">Who Is Eligible?</div>
+    <div class="sec-title-en" data-lang="en">เงื่อนไขการเข้าร่วม</div>
+    <div class="sec-divider"></div>
+
+    <div class="elig-grid">
+      <div class="elig-card">
+        <div class="elig-icon">👤</div>
+        <div class="elig-th" data-lang="th">ผู้มีสิทธิ์เข้าร่วม</div>
+        <div class="elig-th" data-lang="en">Eligible Participants</div>
+        <div class="elig-en" data-lang="th">Eligible Participants</div>
+        <div class="elig-en" data-lang="en">ผู้มีสิทธิ์</div>
+        <div class="elig-detail" data-lang="th">พนักงานประจำของบริษัทที่ผ่านการทดลองงานแล้วเท่านั้น</div>
+        <div class="elig-detail" data-lang="en">Permanent employees who have successfully completed their probation period only.</div>
+      </div>
+      <div class="elig-card">
+        <div class="elig-icon">📅</div>
+        <div class="elig-th" data-lang="th">ระยะเวลาโครงการ</div>
+        <div class="elig-th" data-lang="en">Program Period</div>
+        <div class="elig-en" data-lang="th">Program Period</div>
+        <div class="elig-en" data-lang="en">ระยะเวลา</div>
+        <div class="elig-detail" data-lang="th"><strong>1 กรกฎาคม 2569</strong> ถึง <strong>30 มิถุนายน 2570</strong> (1 ปี)</div>
+        <div class="elig-detail" data-lang="en"><strong>1 July 2026</strong> to <strong>30 June 2027</strong> (1 year)</div>
+      </div>
+      <div class="elig-card">
+        <div class="elig-icon">🗳️</div>
+        <div class="elig-th" data-lang="th">การเลือกแผน</div>
+        <div class="elig-th" data-lang="en">Plan Selection</div>
+        <div class="elig-en" data-lang="th">Plan Selection</div>
+        <div class="elig-en" data-lang="en">การเลือก</div>
+        <div class="elig-detail" data-lang="th">การเลือกแผนเป็นไปโดยสมัครใจ เลือกได้เพียง <strong>1 แผน</strong> ตลอดระยะเวลาโครงการ</div>
+        <div class="elig-detail" data-lang="en">Participation is voluntary. Each employee may select <strong>one (1) plan only</strong> for the entire program duration.</div>
+      </div>
+      <div class="elig-card">
+        <div class="elig-icon">🔒</div>
+        <div class="elig-th" data-lang="th">การเปลี่ยนแปลง</div>
+        <div class="elig-th" data-lang="en">Changes After Selection</div>
+        <div class="elig-en" data-lang="th">After Confirmation</div>
+        <div class="elig-en" data-lang="en">หลังยืนยัน</div>
+        <div class="elig-detail" data-lang="th">เมื่อยืนยันการเลือกแผนแล้ว <strong>จะไม่สามารถเปลี่ยนแปลงหรือแก้ไขได้</strong> เว้นแต่บริษัทกำหนดเป็นอย่างอื่น</div>
+        <div class="elig-detail" data-lang="en">Once confirmed, the selection <strong>cannot be modified</strong> unless otherwise determined by the Company.</div>
+      </div>
+    </div>
+
+    <div class="alert-box">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <div class="alert-th" data-lang="th">หากไม่เลือกแผนภายในกำหนด</div>
+        <div class="alert-th" data-lang="en">Default Enrollment</div>
+        <div class="alert-en" data-lang="th">Default Enrollment — If No Selection Is Made</div>
+        <div class="alert-en" data-lang="en">กรณีไม่เลือกภายในกำหนด</div>
+        <div class="alert-body" data-lang="th">หากพนักงานไม่ดำเนินการเลือกแผนภายในระยะเวลาที่กำหนด บริษัทจะถือว่าพนักงานคงสิทธิ์ภายใต้ <strong>แผน 1 (แผนปัจจุบัน)</strong> โดยอัตโนมัติ</div>
+        <div class="alert-body" data-lang="en">Employees who do not make a selection within the designated period will be <strong>automatically enrolled in Plan 1 (Current Plan)</strong>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: PLAN OVERVIEW -->
+<div class="container" id="s3">
+  <div class="section">
+    <div class="sec-label"><span class="num">3</span><span data-lang="th">แผนสวัสดิการ 3 แบบ</span><span data-lang="en">3 Benefit Plan Options</span></div>
+    <div class="sec-title" data-lang="th">เลือกแผนที่เหมาะกับคุณ</div>
+    <div class="sec-title" data-lang="en">Choose the Right Plan for You</div>
+    <div class="sec-title-en" data-lang="th">Choose the Right Plan for You</div>
+    <div class="sec-title-en" data-lang="en">เลือกแผนที่ตรงกับไลฟ์สไตล์ของคุณ</div>
+    <div class="sec-divider"></div>
+
+    <div class="plan-grid">
+      <!-- Plan 1 -->
+      <div class="plan-card pc-p1">
+        <div class="plan-head">
+          <div class="plan-no">Plan I · แผน 1</div>
+          <div class="plan-name-th" data-lang="th">แผนปัจจุบัน</div>
+          <div class="plan-name-th" data-lang="en">Current Plan</div>
+          <div class="plan-name-en" data-lang="th">Current Plan</div>
+          <div class="plan-name-en" data-lang="en">แผนปัจจุบัน</div>
+        </div>
+        <div class="plan-body">
+          <div class="pl-sec" data-lang="th">เหมาะสำหรับ</div>
+          <div class="pl-sec" data-lang="en">Best For</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="th">
+            พนักงานที่ใช้บริการผู้ป่วยนอก (OPD) บ่อยครั้ง ต้องการวงเงิน OPD สูง และมีสิทธิพิเศษเรื่องแว่นตาและวัคซีน
+          </div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="en">
+            Employees who visit outpatient (OPD) frequently, need high OPD limits, and want eyewear &amp; vaccination coverage.
+          </div>
+          <div class="pl-sec">IPD</div>
+          <div class="pl-row"><span class="pl-label">ค่าห้อง/วัน<span class="pl-label-en">Room &amp; Board/Day</span></span><span class="pl-val">2,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ค่ารักษา/ผ่าตัด<span class="pl-label-en">Treatment/Surgery</span></span><span class="pl-val">18,000 ฿</span></div>
+          <div class="pl-sec">OPD</div>
+          <div class="pl-row"><span class="pl-label">วงเงิน/ครั้ง<span class="pl-label-en">Max/Visit</span></span><span class="pl-val">12,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ครั้ง/ปี<span class="pl-label-en">Visits/Year</span></span><span class="pl-val">30 ครั้ง</span></div>
+          <div class="pl-sec" data-lang="th">สิทธิพิเศษ</div>
+          <div class="pl-sec" data-lang="en">Additional</div>
+          <div class="pl-row"><span class="pl-label">วัคซีน/ปี<span class="pl-label-en">Vaccination/yr</span></span><span class="pl-val">2,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">แว่นสายตาปกติ<span class="pl-label-en">Eyewear (2yr)</span></span><span class="pl-val">5,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">แว่นพิเศษ<span class="pl-label-en">Progressive (2yr)</span></span><span class="pl-val">7,500 ฿</span></div>
+        </div>
+      </div>
+
+      <!-- Plan 2 -->
+      <div class="plan-card pc-p2 featured">
+        <div class="plan-ribbon" data-lang="th">คุ้มครอง IPD สูงขึ้น · Higher IPD Coverage</div>
+        <div class="plan-ribbon" data-lang="en">Higher IPD Coverage · คุ้มครอง IPD สูงขึ้น</div>
+        <div class="plan-head">
+          <div class="plan-no">Plan II · แผน 2</div>
+          <div class="plan-name-th" data-lang="th">แผนเน้นความคุ้มครอง</div>
+          <div class="plan-name-th" data-lang="en">Care Plan</div>
+          <div class="plan-name-en" data-lang="th">Care Plan</div>
+          <div class="plan-name-en" data-lang="en">แผนเน้นความคุ้มครอง</div>
+        </div>
+        <div class="plan-body">
+          <div class="pl-sec" data-lang="th">เหมาะสำหรับ</div>
+          <div class="pl-sec" data-lang="en">Best For</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="th">
+            พนักงานที่ต้องการความคุ้มครองกรณีผู้ป่วยใน (IPD) สูง เช่น มีความเสี่ยงต่อการเจ็บป่วยหนักหรือต้องผ่าตัด
+          </div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="en">
+            Employees who need higher inpatient (IPD) protection — such as those at higher risk for serious illness or surgery.
+          </div>
+          <div class="pl-sec">IPD</div>
+          <div class="pl-row"><span class="pl-label">ค่าห้อง/วัน<span class="pl-label-en">Room &amp; Board/Day</span></span><span class="pl-val">3,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ค่ารักษา/ผ่าตัด<span class="pl-label-en">Treatment/Surgery</span></span><span class="pl-val">50,000 ฿</span></div>
+          <div class="pl-sec">OPD</div>
+          <div class="pl-row"><span class="pl-label">วงเงิน/ครั้ง<span class="pl-label-en">Max/Visit</span></span><span class="pl-val">5,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ครั้ง/ปี<span class="pl-label-en">Visits/Year</span></span><span class="pl-val">20 ครั้ง</span></div>
+          <div class="pl-sec" data-lang="th">สิทธิพิเศษ</div>
+          <div class="pl-sec" data-lang="en">Additional</div>
+          <div class="pl-row"><span class="pl-label">วัคซีน<span class="pl-label-en">Vaccination</span></span><span class="pl-val none">ไม่คุ้มครอง</span></div>
+          <div class="pl-row"><span class="pl-label">แว่นสายตา<span class="pl-label-en">Eyewear</span></span><span class="pl-val none">ไม่คุ้มครอง</span></div>
+          <div class="pl-row"><span class="pl-label">Well-Being Budget</span><span class="pl-val none">ไม่คุ้มครอง</span></div>
+        </div>
+      </div>
+
+      <!-- Plan 3 -->
+      <div class="plan-card pc-p3">
+        <div class="plan-head">
+          <div class="plan-no">Plan III · แผน 3</div>
+          <div class="plan-name-th" data-lang="th">แผนสุขภาพดีและยืดหยุ่น</div>
+          <div class="plan-name-th" data-lang="en">Well-Being Plan</div>
+          <div class="plan-name-en" data-lang="th">Well-Being Plan</div>
+          <div class="plan-name-en" data-lang="en">แผนสุขภาพดีและยืดหยุ่น</div>
+        </div>
+        <div class="plan-body">
+          <div class="pl-sec" data-lang="th">เหมาะสำหรับ</div>
+          <div class="pl-sec" data-lang="en">Best For</div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="th">
+            พนักงานที่ดูแลสุขภาพเชิงป้องกัน ออกกำลังกาย หรือต้องการวงเงินดูแลสุขภาพยืดหยุ่น 10,000 บาท/ปี
+          </div>
+          <div style="font-size:12px;color:var(--mid);line-height:1.7;padding:4px 0 8px;" data-lang="en">
+            Employees focused on preventive health, fitness, or who want a flexible 10,000 THB/year Well-Being Budget.
+          </div>
+          <div class="pl-sec">IPD</div>
+          <div class="pl-row"><span class="pl-label">ค่าห้อง/วัน<span class="pl-label-en">Room &amp; Board/Day</span></span><span class="pl-val">3,000 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ค่ารักษา/ผ่าตัด<span class="pl-label-en">Treatment/Surgery</span></span><span class="pl-val">50,000 ฿</span></div>
+          <div class="pl-sec">OPD</div>
+          <div class="pl-row"><span class="pl-label">วงเงิน/ครั้ง<span class="pl-label-en">Max/Visit</span></span><span class="pl-val">3,500 ฿</span></div>
+          <div class="pl-row"><span class="pl-label">ครั้ง/ปี<span class="pl-label-en">Visits/Year</span></span><span class="pl-val">15 ครั้ง</span></div>
+          <div class="pl-sec" data-lang="th">สิทธิพิเศษ ★</div>
+          <div class="pl-sec" data-lang="en">Additional ★</div>
+          <div class="pl-row"><span class="pl-label">Well-Being Budget/ปี<span class="pl-label-en">Well-Being Budget/yr</span></span><span class="pl-val">10,000 ฿</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: COMPARISON TABLE -->
+<div class="container" id="s4">
+  <div class="section">
+    <div class="sec-label"><span class="num">4</span><span data-lang="th">ตารางเปรียบเทียบสิทธิประโยชน์</span><span data-lang="en">Plan Comparison Table</span></div>
+    <div class="sec-title" data-lang="th">เปรียบเทียบครบทุกรายการ</div>
+    <div class="sec-title" data-lang="en">Full Benefits Comparison</div>
+    <div class="sec-title-en" data-lang="th">Full Benefits Comparison</div>
+    <div class="sec-title-en" data-lang="en">เปรียบเทียบทุกรายการ</div>
+    <div class="sec-divider"></div>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th style="width:36%">
+            <span data-lang="th">รายการสิทธิประโยชน์</span>
+            <span data-lang="en">Benefit Item</span>
+          </th>
+          <th class="h-p1">
+            <span data-lang="th">แผน 1<br><small>แผนปัจจุบัน</small></span>
+            <span data-lang="en">Plan I<br><small>Current Plan</small></span>
+          </th>
+          <th class="h-p2">
+            <span data-lang="th">แผน 2<br><small>แผนเน้นความคุ้มครอง</small></span>
+            <span data-lang="en">Plan II<br><small>Care Plan</small></span>
+          </th>
+          <th class="h-p3">
+            <span data-lang="th">แผน 3<br><small>แผนสุขภาพดีและยืดหยุ่น</small></span>
+            <span data-lang="en">Plan III<br><small>Well-Being Plan</small></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sec-row"><td colspan="4"><span data-lang="th">ผู้ป่วยใน (IPD) · Inpatient</span><span data-lang="en">Inpatient (IPD) · ผู้ป่วยใน</span></td></tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่าห้องและค่าอาหาร (ต่อวัน)</div><div class="lbl-th" data-lang="en">Room &amp; Board (per day)</div><div class="lbl-en" data-lang="th">สูงสุด 20 วัน/ครั้ง · Room &amp; Board/Day (max 20 days)</div><div class="lbl-en" data-lang="en">สูงสุด 20 วัน/ครั้ง · Max 20 days/disability</div></td>
+          <td class="v-center v-p1"><span class="amt">2,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">3,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">3,000 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่าห้อง ICU (ต่อวัน)</div><div class="lbl-th" data-lang="en">ICU Room &amp; Board (per day)</div><div class="lbl-en" data-lang="th">สูงสุด 10 วัน/ครั้ง · ICU Room/Day (max 10 days)</div><div class="lbl-en" data-lang="en">สูงสุด 10 วัน/ครั้ง · Max 10 days/disability</div></td>
+          <td class="v-center v-p1"><span class="amt">2,500 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">5,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">5,000 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่ารักษาพยาบาลทั่วไป</div><div class="lbl-th" data-lang="en">General Medical Expenses</div></td>
+          <td class="v-center v-p1"><span class="amt">18,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">50,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">50,000 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่ารถพยาบาลฉุกเฉิน</div><div class="lbl-th" data-lang="en">Emergency Ambulance</div></td>
+          <td class="v-center v-p1"><span class="amt">4,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">4,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">4,000 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่าผ่าตัด</div><div class="lbl-th" data-lang="en">Surgical Fees</div></td>
+          <td class="v-center v-p1"><span class="amt">18,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">50,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">50,000 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่าแพทย์เยี่ยมไข้ (ต่อวัน)</div><div class="lbl-th" data-lang="en">Doctor Attendance Fee (per day)</div><div class="lbl-en" data-lang="th">สูงสุด 20 วัน · Max 20 days</div><div class="lbl-en" data-lang="en">สูงสุด 20 วัน · Max 20 days/disability</div></td>
+          <td class="v-center v-p1"><span class="amt">1,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">1,500 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">1,500 ฿</span></td>
+        </tr>
+
+        <tr class="sec-row"><td colspan="4"><span data-lang="th">ผู้ป่วยนอก (OPD) · Outpatient</span><span data-lang="en">Outpatient (OPD) · ผู้ป่วยนอก</span></td></tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">วงเงินสูงสุดต่อครั้ง</div><div class="lbl-th" data-lang="en">Maximum per Visit</div></td>
+          <td class="v-center v-p1"><span class="amt">12,000 ฿</span></td>
+          <td class="v-center v-p2"><span class="amt">5,000 ฿</span></td>
+          <td class="v-center v-p3"><span class="amt">3,500 ฿</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">จำนวนครั้งต่อปี</div><div class="lbl-th" data-lang="en">Annual Visits</div></td>
+          <td class="v-center v-p1"><span class="amt">30 ครั้ง</span></td>
+          <td class="v-center v-p2"><span class="amt">20 ครั้ง</span></td>
+          <td class="v-center v-p3"><span class="amt">15 ครั้ง</span></td>
+        </tr>
+
+        <tr class="sec-row"><td colspan="4"><span data-lang="th">สิทธิประโยชน์เพิ่มเติม · Additional Benefits</span><span data-lang="en">Additional Benefits · สิทธิประโยชน์เพิ่มเติม</span></td></tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">ค่าวัคซีน (ต่อปี)</div><div class="lbl-th" data-lang="en">Vaccination (per year)</div></td>
+          <td class="v-center v-p1"><span class="amt">2,000 ฿</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">แว่นสายตาเลนส์ปกติ</div><div class="lbl-th" data-lang="en">Standard Eyewear</div><div class="lbl-en" data-lang="th">เฉพาะพนักงาน / ทุก 2 ปี · Employee only, 2-year cycle</div><div class="lbl-en" data-lang="en">เฉพาะพนักงาน / ทุก 2 ปี · Employee only, 2-year cycle</div></td>
+          <td class="v-center v-p1"><span class="amt">5,000 ฿</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">แว่นสายตาเลนส์พิเศษ (โปรเกรสซีฟ)</div><div class="lbl-th" data-lang="en">Progressive Lenses</div><div class="lbl-en" data-lang="th">เฉพาะพนักงาน / ทุก 2 ปี · Employee only, 2-year cycle</div><div class="lbl-en" data-lang="en">เฉพาะพนักงาน / ทุก 2 ปี · Employee only, 2-year cycle</div></td>
+          <td class="v-center v-p1"><span class="amt">7,500 ฿</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+        </tr>
+        <tr class="data-row">
+          <td class="lbl-cell"><div class="lbl-th" data-lang="th">วงเงินสวัสดิการด้านสุขภาพ (Well-Being Budget)</div><div class="lbl-th" data-lang="en">Well-Being Budget</div><div class="lbl-en" data-lang="th">เฉพาะพนักงาน / ต่อปี · Employee only, per annum ★</div><div class="lbl-en" data-lang="en">เฉพาะพนักงาน / ต่อปี · Employee only, per annum ★</div></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+          <td class="v-center"><span class="none-val" data-lang="th">ไม่คุ้มครอง</span><span class="none-val" data-lang="en">Not Covered</span></td>
+          <td class="v-center v-p3"><span class="amt">10,000 ฿</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 5: BENEFIT DETAILS (OPD) -->
+<div class="container" id="s5">
+  <div class="section">
+    <div class="sec-label"><span class="num">5</span><span data-lang="th">การใช้สิทธิประโยชน์ (OPD)</span><span data-lang="en">Benefit Utilization (OPD)</span></div>
+    <div class="sec-title" data-lang="th">เงื่อนไขการใช้สิทธิผู้ป่วยนอก</div>
+    <div class="sec-title" data-lang="en">Outpatient (OPD) Key Conditions</div>
+    <div class="sec-title-en" data-lang="th">Outpatient Key Conditions</div>
+    <div class="sec-title-en" data-lang="en">เงื่อนไขสำคัญ OPD</div>
+    <div class="sec-divider"></div>
+
+    <div class="use-grid">
+      <div class="use-card">
+        <div class="use-tag" data-lang="th">กฎสำคัญ OPD</div>
+        <div class="use-tag" data-lang="en">OPD Key Rule</div>
+        <div class="use-th" data-lang="th">1 ครั้ง / 1 ใบเสร็จ ต่อวัน</div>
+        <div class="use-th" data-lang="en">1 Claim / 1 Invoice per Day</div>
+        <div class="use-en" data-lang="th">1 Claim / 1 Invoice per Day</div>
+        <div class="use-en" data-lang="en">1 สิทธิ์ / 1 ใบเสร็จ ต่อวัน</div>
+        <div class="use-detail" data-lang="th">กรณีผู้ป่วยนอก (OPD) จำกัดสิทธิ์ไม่เกิน 1 ครั้งต่อวัน และต้องเป็นใบเสร็จ 1 ใบต่อ 1 วันเท่านั้น</div>
+        <div class="use-detail" data-lang="en">Outpatient (OPD) benefits are limited to one (1) claim per day, with one (1) invoice per day only.</div>
+      </div>
+      <div class="use-card warn">
+        <div class="use-tag" data-lang="th">แพทย์ทางเลือก</div>
+        <div class="use-tag" data-lang="en">Alternative Medicine</div>
+        <div class="use-th" data-lang="th">แพทย์แผนไทย / แผนจีน</div>
+        <div class="use-th" data-lang="en">Thai / Chinese Traditional Medicine</div>
+        <div class="use-en" data-lang="th">Thai &amp; Chinese Traditional Medicine</div>
+        <div class="use-en" data-lang="en">แพทย์แผนไทย / แผนจีน</div>
+        <div class="use-detail" data-lang="th">ใช้ได้เฉพาะสถานพยาบาลหรือคลินิกที่ได้รับใบอนุญาตถูกต้องตามกฎหมายเท่านั้น</div>
+        <div class="use-detail" data-lang="en">Provided by licensed practitioners or legally authorized clinics only.</div>
+      </div>
+      <div class="use-card success">
+        <div class="use-tag" data-lang="th">ค่าส่วนต่าง OPD (แผน 3)</div>
+        <div class="use-tag" data-lang="en">OPD Excess (Plan III)</div>
+        <div class="use-th" data-lang="th">ใช้ Well-Being Budget ชดเชยส่วนเกิน</div>
+        <div class="use-th" data-lang="en">Cover OPD Excess with Well-Being Budget</div>
+        <div class="use-en" data-lang="th">OPD Excess Coverage via Well-Being Budget</div>
+        <div class="use-en" data-lang="en">ใช้งบ Well-Being ชดเชย OPD ส่วนเกิน</div>
+        <div class="use-detail" data-lang="th">สำหรับแผน 3 สามารถใช้วงเงิน Well-Being Budget ชำระค่ารักษาพยาบาล OPD ส่วนที่เกินจากวงเงินสิทธิ์ของแผน 3 ได้ ภายใต้เงื่อนไขบริษัทเท่านั้น</div>
+        <div class="use-detail" data-lang="en">Plan III employees may use Well-Being Budget to cover eligible OPD costs exceeding plan limits, subject to Company policies only.</div>
+      </div>
+      <div class="use-card">
+        <div class="use-tag" data-lang="th">พนักงานเข้าร่วมระหว่างปี</div>
+        <div class="use-tag" data-lang="en">Mid-Year Joiners</div>
+        <div class="use-th" data-lang="th">คำนวณ Well-Being Budget แบบ Pro-rata</div>
+        <div class="use-th" data-lang="en">Pro-rata Well-Being Budget Calculation</div>
+        <div class="use-en" data-lang="th">Pro-rata Calculation for Mid-Year Joiners</div>
+        <div class="use-en" data-lang="en">สำหรับพนักงานที่เข้าร่วมระหว่างปี</div>
+        <div class="use-detail" data-lang="th">กรณีพนักงานเข้าร่วมระหว่างปี วงเงินสวัสดิการด้านสุขภาพจะคำนวณแบบ Pro-rata รายเดือน (10,000 ÷ 12 เดือน) ตามระยะเวลาที่เหลือในปีงบประมาณ</div>
+        <div class="use-detail" data-lang="en">For mid-year joiners, the Well-Being Budget is calculated on a pro-rata monthly basis (THB 10,000 ÷ 12 months), based on remaining months in the fiscal year.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: WELL-BEING -->
+<div class="container" id="s6">
+  <div class="section">
+    <div class="sec-label"><span class="num">6</span><span data-lang="th">Well-Being Budget (แผน 3)</span><span data-lang="en">Well-Being Budget (Plan III)</span></div>
+    <div class="sec-title" data-lang="th">ใช้วงเงิน 10,000 บาท/ปี ได้กับอะไรบ้าง?</div>
+    <div class="sec-title" data-lang="en">What Can You Use the 10,000 THB/year For?</div>
+    <div class="sec-title-en" data-lang="th">What Can You Use the 10,000 THB Budget For?</div>
+    <div class="sec-title-en" data-lang="en">หมวดหมู่ที่ใช้ได้ของ Well-Being Budget</div>
+    <div class="sec-divider"></div>
+
+    <div class="wb-hero">
+      <div class="wb-big-num">฿10K</div>
+      <div>
+        <div class="wb-title" data-lang="th">วงเงินสวัสดิการด้านสุขภาพ Well-Being Budget</div>
+        <div class="wb-title" data-lang="en">Well-Being Flexible Budget</div>
+        <div class="wb-title-en" data-lang="th">เฉพาะแผน 3 · Plan III only · ต่อปีต่อพนักงาน</div>
+        <div class="wb-title-en" data-lang="en">Plan III only · Per employee per annum</div>
+        <div class="wb-note" data-lang="th">ใช้ได้เฉพาะรายการที่บริษัทกำหนดเท่านั้น ดูรายละเอียดด้านล่าง</div>
+        <div class="wb-note" data-lang="en">May be used exclusively for company-approved categories listed below.</div>
+      </div>
+    </div>
+
+    <div class="wb-cats">
+      <div class="wb-cat">
+        <div class="wb-cat-icon">🦷</div>
+        <div class="wb-cat-th" data-lang="th">ทันตกรรม</div>
+        <div class="wb-cat-th" data-lang="en">Dental Treatment</div>
+        <div class="wb-cat-en" data-lang="th">Dental Treatment</div>
+        <div class="wb-cat-en" data-lang="en">ทันตกรรม</div>
+        <div class="wb-cat-detail" data-lang="th">ถอนฟัน / อุดฟัน / ขูดหินปูน / รักษาทันตกรรมจากอุบัติเหตุเท่านั้น</div>
+        <div class="wb-cat-detail" data-lang="en">Extraction, filling, scaling, and accident-related dental treatment only.</div>
+      </div>
+      <div class="wb-cat">
+        <div class="wb-cat-icon">🏃</div>
+        <div class="wb-cat-th" data-lang="th">กิจกรรมส่งเสริมสุขภาพและออกกำลังกาย</div>
+        <div class="wb-cat-th" data-lang="en">Health Promotion &amp; Physical Activity</div>
+        <div class="wb-cat-en" data-lang="th">Health Promotion &amp; Exercise</div>
+        <div class="wb-cat-en" data-lang="en">ส่งเสริมสุขภาพและออกกำลังกาย</div>
+        <div class="wb-cat-detail" data-lang="th">ค่าสมาชิกฟิตเนส / ว่ายน้ำ / วิ่งมาราธอน / โยคะ (ต้องเป็นกิจกรรมที่มีวัตถุประสงค์เพื่อสุขภาพโดยตรง)</div>
+        <div class="wb-cat-detail" data-lang="en">Gym memberships, swimming lessons, running events, yoga classes (must be directly related to health promotion).</div>
+      </div>
+      <div class="wb-cat">
+        <div class="wb-cat-icon">🧠</div>
+        <div class="wb-cat-th" data-lang="th">กิจกรรมบำบัดจิตใจ</div>
+        <div class="wb-cat-th" data-lang="en">Mental Health &amp; Psychological Support</div>
+        <div class="wb-cat-en" data-lang="th">Mental Health Support</div>
+        <div class="wb-cat-en" data-lang="en">สุขภาพจิต</div>
+        <div class="wb-cat-detail" data-lang="th">ค่าพบนักจิตวิทยา / การให้คำปรึกษา / การฝึกสมาธิและ Mindfulness โดยผู้เชี่ยวชาญหรือสถาบันที่เกี่ยวข้อง (ไม่รวมการนวดเพื่อผ่อนคลายหรือสปา)</div>
+        <div class="wb-cat-detail" data-lang="en">Psychologist consultations, counseling, mindfulness/meditation by qualified professionals (excluding massage therapy and spa services).</div>
+      </div>
+      <div class="wb-cat">
+        <div class="wb-cat-icon">💊</div>
+        <div class="wb-cat-th" data-lang="th">การใช้ชำระส่วนต่าง OPD</div>
+        <div class="wb-cat-th" data-lang="en">OPD Excess Out-of-Pocket Coverage</div>
+        <div class="wb-cat-en" data-lang="th">OPD Excess Coverage</div>
+        <div class="wb-cat-en" data-lang="en">ค่า OPD ส่วนเกิน</div>
+        <div class="wb-cat-detail" data-lang="th">ใช้ชำระส่วนต่างค่ารักษาพยาบาล OPD ที่เกินจากวงเงินสิทธิ์ของแผน 3 ได้ ภายใต้เงื่อนไขบริษัทเท่านั้น</div>
+        <div class="wb-cat-detail" data-lang="en">May cover eligible OPD cost differences exceeding plan limits, subject to Company policies only.</div>
+      </div>
+      <div class="wb-cat">
+        <div class="wb-cat-icon">🌿</div>
+        <div class="wb-cat-th" data-lang="th">แพทย์ทางเลือก</div>
+        <div class="wb-cat-th" data-lang="en">Alternative Medicine</div>
+        <div class="wb-cat-en" data-lang="th">Thai &amp; Chinese Medicine</div>
+        <div class="wb-cat-en" data-lang="en">แพทย์แผนไทย / จีน</div>
+        <div class="wb-cat-detail" data-lang="th">แพทย์แผนไทย / แพทย์แผนจีน โดยสถานพยาบาลหรือคลินิกที่ได้รับใบอนุญาตถูกต้องตามกฎหมาย</div>
+        <div class="wb-cat-detail" data-lang="en">Thai traditional and Chinese traditional medicine by licensed practitioners or legally authorized clinics only.</div>
+      </div>
+      <div class="wb-cat">
+        <div class="wb-cat-icon">🩺</div>
+        <div class="wb-cat-th" data-lang="th">ตรวจสุขภาพเพิ่มเติมและวัคซีน</div>
+        <div class="wb-cat-th" data-lang="en">Additional Screening &amp; Vaccinations</div>
+        <div class="wb-cat-en" data-lang="th">Advanced Screening &amp; Vaccination</div>
+        <div class="wb-cat-en" data-lang="en">ตรวจสุขภาพเชิงลึก / วัคซีน</div>
+        <div class="wb-cat-detail" data-lang="th">การตรวจสุขภาพเพิ่มเติมเชิงลึก และการฉีดวัคซีนที่เกี่ยวข้องกับการป้องกันโรคต่างๆ</div>
+        <div class="wb-cat-detail" data-lang="en">Advanced medical check-ups and vaccinations related to disease prevention and health promotion.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: TIMELINE -->
+<div class="container" id="s7">
+  <div class="section">
+    <div class="sec-label"><span class="num">7</span><span data-lang="th">ขั้นตอนการเลือกแผน</span><span data-lang="en">Enrollment Timeline</span></div>
+    <div class="sec-title" data-lang="th">วิธีการเลือกแผนสวัสดิการ</div>
+    <div class="sec-title" data-lang="en">How to Enroll</div>
+    <div class="sec-title-en" data-lang="th">How to Enroll — Step by Step</div>
+    <div class="sec-title-en" data-lang="en">ขั้นตอนการเลือกแผน</div>
+    <div class="sec-divider"></div>
+
+    <div class="tl-wrap">
+      <div class="tl-line"></div>
+      <div class="tl-item">
+        <div class="tl-dot done">1</div>
+        <div class="tl-content">
+          <div class="tl-date">15–24 มิถุนายน 2569 · 15–24 June 2026</div>
+          <div class="tl-th" data-lang="th">เปิดให้พนักงานเลือกแผน</div>
+          <div class="tl-th" data-lang="en">Plan Selection Opens</div>
+          <div class="tl-en" data-lang="th">Plan Selection Period Opens</div>
+          <div class="tl-en" data-lang="en">ช่วงเวลาเลือกแผน</div>
+          <div class="tl-detail" data-lang="th">บริษัทจะเปิดให้พนักงานเลือกแผนผ่านระบบออนไลน์ที่บริษัทกำหนด ภายในวันที่ 15–24 มิถุนายน 2569</div>
+          <div class="tl-detail" data-lang="en">The Company will open plan selection via the designated online system between 15–24 June 2026.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-content">
+          <div class="tl-date" data-lang="th">ภายใน 24 มิถุนายน 2569 · By 24 June 2026</div>
+          <div class="tl-date" data-lang="en">By 24 June 2026 · ภายใน 24 มิถุนายน 2569</div>
+          <div class="tl-th" data-lang="th">ยืนยันการเลือกแผน</div>
+          <div class="tl-th" data-lang="en">Confirm Your Selection</div>
+          <div class="tl-en" data-lang="th">Selection Confirmation — Final &amp; Irrevocable</div>
+          <div class="tl-en" data-lang="en">การยืนยัน — ไม่สามารถเปลี่ยนแปลงได้</div>
+          <div class="tl-detail" data-lang="th">เมื่อยืนยันการเลือกแผนเรียบร้อยแล้ว จะไม่สามารถเปลี่ยนแปลงหรือแก้ไขการเลือกแผนได้ภายหลัง เว้นแต่บริษัทกำหนดเป็นอย่างอื่น</div>
+          <div class="tl-detail" data-lang="en">Once the selection is confirmed, it shall be considered final and cannot be modified unless otherwise specified by the Company.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <div class="tl-date">26 มิถุนายน 2569 · 26 June 2026</div>
+          <div class="tl-th" data-lang="th">ประกาศยืนยันผลการเลือกแผน</div>
+          <div class="tl-th" data-lang="en">Results Announced</div>
+          <div class="tl-en" data-lang="th">Confirmed Enrollment Results Announced</div>
+          <div class="tl-en" data-lang="en">ประกาศผล</div>
+          <div class="tl-detail" data-lang="th">บริษัทจะประกาศยืนยันผลการเลือกแผนสวัสดิการของพนักงานผ่านช่องทางที่บริษัทกำหนด</div>
+          <div class="tl-detail" data-lang="en">The Company will announce confirmed plan enrollment results through official communication channels.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-content">
+          <div class="tl-date">1 กรกฎาคม 2569 · 1 July 2026</div>
+          <div class="tl-th" data-lang="th">เริ่มใช้สิทธิ์ตามแผนที่เลือก</div>
+          <div class="tl-th" data-lang="en">Benefits Take Effect</div>
+          <div class="tl-en" data-lang="th">Selected Plan Benefits Effective Date</div>
+          <div class="tl-en" data-lang="en">วันที่สิทธิ์มีผล</div>
+          <div class="tl-detail" data-lang="th">สิทธิประโยชน์ตามแผนที่พนักงานเลือกจะมีผลใช้บังคับตั้งแต่วันที่ 1 กรกฎาคม 2569 เป็นต้นไป</div>
+          <div class="tl-detail" data-lang="en">Benefits under the selected plan become effective from 1 July 2026 onwards.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-content">
+          <div class="tl-date">30 มิถุนายน 2570 · 30 June 2027</div>
+          <div class="tl-th" data-lang="th">สิ้นสุดโครงการนำร่อง</div>
+          <div class="tl-th" data-lang="en">Pilot Program Ends</div>
+          <div class="tl-en" data-lang="th">One-Year Pilot Program Ends</div>
+          <div class="tl-en" data-lang="en">สิ้นสุดโครงการ 1 ปี</div>
+          <div class="tl-detail" data-lang="th">บริษัทจะประเมินผลสัมฤทธิ์และแจ้งให้พนักงานทราบล่วงหน้าเกี่ยวกับแนวทางดำเนินการต่อไปหลังสิ้นสุดโครงการ</div>
+          <div class="tl-detail" data-lang="en">The Company will evaluate outcomes and provide prior notice to employees regarding next steps after the program concludes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: IMPORTANT NOTES -->
+<div class="container" id="s8">
+  <div class="section">
+    <div class="sec-label"><span class="num">8</span><span data-lang="th">ข้อสำคัญที่ต้องทราบ</span><span data-lang="en">Important Notes</span></div>
+    <div class="sec-title" data-lang="th">สิ่งที่พนักงานต้องระวัง</div>
+    <div class="sec-title" data-lang="en">Key Things to Remember</div>
+    <div class="sec-title-en" data-lang="th">Key Things to Remember</div>
+    <div class="sec-title-en" data-lang="en">ข้อควรระวัง</div>
+    <div class="sec-divider"></div>
+
+    <div class="imp-grid">
+      <div class="imp-card blue">
+        <div class="imp-icon">📋</div>
+        <div class="imp-th" data-lang="th">สอบถามก่อนใช้สิทธิ์</div>
+        <div class="imp-th" data-lang="en">Consult Before Claiming</div>
+        <div class="imp-en" data-lang="th">Consult HR Before Any Claim</div>
+        <div class="imp-en" data-lang="en">ปรึกษา HR ก่อนเบิก</div>
+        <div class="imp-detail" data-lang="th">หากมีข้อสงสัยเกี่ยวกับการใช้สิทธิ์หรือคุณสมบัติรายการใด พนักงานต้องสอบถามหรือยืนยันกับฝ่ายทรัพยากรบุคคลก่อนดำเนินการใช้สิทธิ์</div>
+        <div class="imp-detail" data-lang="en">If there is any uncertainty regarding eligibility or coverage, employees must consult the HR Department in advance before claiming.</div>
+      </div>
+      <div class="imp-card amber">
+        <div class="imp-icon">⚠️</div>
+        <div class="imp-th" data-lang="th">บริษัทไม่รับผิดชอบรายการที่ไม่เป็นไปตามเกณฑ์</div>
+        <div class="imp-th" data-lang="en">Non-Compliant Claims Will Be Rejected</div>
+        <div class="imp-en" data-lang="th">Non-Compliant Claims = Rejected</div>
+        <div class="imp-en" data-lang="en">รายการที่ไม่เป็นไปตามเกณฑ์จะถูกปฏิเสธ</div>
+        <div class="imp-detail" data-lang="th">บริษัทจะไม่รับผิดชอบต่อรายการที่ไม่เป็นไปตามหลักเกณฑ์ที่กำหนด และขอสงวนสิทธิ์ปฏิเสธการเบิกจ่ายในทุกกรณีที่ไม่สอดคล้องกับเงื่อนไขโครงการ</div>
+        <div class="imp-detail" data-lang="en">The Company shall not be responsible for claims that do not comply with established criteria and reserves the right to reject non-compliant reimbursements in all cases.</div>
+      </div>
+      <div class="imp-card red-c">
+        <div class="imp-icon">🚫</div>
+        <div class="imp-th" data-lang="th">สิทธิ์หมดเมื่อสิ้นสุดการจ้างงาน</div>
+        <div class="imp-th" data-lang="en">Benefits Cease Upon Termination</div>
+        <div class="imp-en" data-lang="th">Benefits End Upon Employment Termination</div>
+        <div class="imp-en" data-lang="en">สิทธิ์สิ้นสุดเมื่อพ้นสภาพพนักงาน</div>
+        <div class="imp-detail" data-lang="th">สิทธิประโยชน์ในโครงการนี้จัดสรรให้เฉพาะพนักงานประจำที่ยังอยู่ในสภาพการจ้างงานเท่านั้น หากสิ้นสุดสภาพการจ้างงาน วงเงินสิทธิ์ทั้งหมดจะสิ้นสุดลงทันที และไม่สามารถแลกเปลี่ยนหรือชดเชยเป็นเงินสดได้</div>
+        <div class="imp-detail" data-lang="en">Benefits are strictly for active employees only. Upon employment termination for any reason, all entitlements cease immediately and shall not be convertible into cash or compensation.</div>
+      </div>
+      <div class="imp-card green">
+        <div class="imp-icon">🔄</div>
+        <div class="imp-th" data-lang="th">บริษัทสงวนสิทธิ์ในการปรับเปลี่ยน</div>
+        <div class="imp-th" data-lang="en">Company Reserves Right to Revise</div>
+        <div class="imp-en" data-lang="th">Company May Revise / Terminate Program</div>
+        <div class="imp-en" data-lang="en">บริษัทอาจปรับเปลี่ยนหรือยกเลิกโครงการ</div>
+        <div class="imp-detail" data-lang="th">บริษัทขอสงวนสิทธิ์ในการปรับเปลี่ยน ปรับปรุงเงื่อนไข หรือยกเลิกโครงการทดลองนี้เมื่อสิ้นสุดระยะเวลา 1 ปี โดยจะประเมินผลสัมฤทธิ์และแจ้งให้พนักงานทราบล่วงหน้า</div>
+        <div class="imp-detail" data-lang="en">The Company reserves the right to revise, amend, or terminate this pilot program upon completion of the one-year period, based on evaluation outcomes, with prior notice to employees.</div>
+      </div>
+      <div class="imp-card blue">
+        <div class="imp-icon">🤝</div>
+        <div class="imp-th" data-lang="th">ช่องทางติดต่อฝ่าย HR</div>
+        <div class="imp-th" data-lang="en">Contact HR Department</div>
+        <div class="imp-en" data-lang="th">Questions? Contact HR</div>
+        <div class="imp-en" data-lang="en">ติดต่อ HR ได้เลย</div>
+        <div class="imp-detail" data-lang="th">สำหรับข้อสงสัยหรือต้องการข้อมูลเพิ่มเติม ติดต่อฝ่ายทรัพยากรบุคคล (HR) ผ่านช่องทางที่บริษัทกำหนด รายละเอียดสิทธิประโยชน์ เงื่อนไข และตารางเปรียบเทียบฉบับเต็มปรากฏในภาคผนวก (Appendix) ท้ายประกาศ</div>
+        <div class="imp-detail" data-lang="en">For any questions, contact the HR Department through designated channels. Full benefit details, conditions, and comparison tables are provided in the Appendix of the official announcement.</div>
+      </div>
+      <div class="imp-card amber">
+        <div class="imp-icon">📝</div>
+        <div class="imp-th" data-lang="th">ภาคผนวกถือเป็นส่วนหนึ่งของประกาศ</div>
+        <div class="imp-th" data-lang="en">Appendix Forms Part of This Announcement</div>
+        <div class="imp-en" data-lang="th">Appendix Is Part of Official Announcement</div>
+        <div class="imp-en" data-lang="en">ภาคผนวกเป็นส่วนหนึ่งของประกาศ</div>
+        <div class="imp-detail" data-lang="th">รายละเอียดสิทธิประโยชน์ เงื่อนไข และตารางเปรียบเทียบวงเงินจากแต่ละแผนปรากฏตามภาคผนวก (Appendix) ท้ายประกาศฉบับนี้ และให้ถือเป็นส่วนหนึ่งของประกาศฉบับนี้</div>
+        <div class="imp-detail" data-lang="en">Detailed benefit information, conditions, and comparative tables are provided in the Appendix, which forms an integral part of this announcement.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">Akara Resources Public Company Limited (บริษัท อัครา รีซอร์สเซส จำกัด (มหาชน))</div>
+  <div>เลขที่ 99 ม.9 ต.เขาเจ็ดลูก อ.ทับคล้อ จ.พิจิตร 66230 · No.99 Moo 9, Khao Chet Luk, Thap Khlo, Phichit 66230</div>
+  <div>Tel: +66 5661 4500 · <a href="http://www.akararesources.com">www.akararesources.com</a></div>
+  <div style="margin-top:10px;font-size:10px;">
+    <span data-lang="th">ลงนามโดย นายศุภโชค พันธุมิตร (ผู้จัดการ ฝ่ายทรัพยากรบุคคล) และ นายบ็อบ เคนเนดี (ผู้จัดการทั่วไป ส่วนปฏิบัติการ) · 21 มิถุนายน 2569</span>
+    <span data-lang="en">Signed by Mr. Suphachoke Phanthumitr (Human Resources Manager) and Mr. Bob Kennedy (General Manager – Operations) · 21 June 2026</span>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('en-mode', lang === 'en');
+  document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  // toggle sticky bar language
+  var isTh = lang === 'th';
+  document.getElementById('sticky-note-th').style.display    = isTh ? '' : 'none';
+  document.getElementById('sticky-note-en').style.display    = isTh ? 'none' : '';
+  document.getElementById('sticky-btn-text-th').style.display = isTh ? '' : 'none';
+  document.getElementById('sticky-btn-text-en').style.display = isTh ? 'none' : '';
+}
+</script>
+
+<!-- STICKY SELECT PLAN BUTTON -->
+<div class="sticky-bar" id="sticky-bar">
+  <div class="sticky-note" id="sticky-note-th">
+    <strong>อ่านรายละเอียดครบแล้ว?</strong><br>กำหนดเลือกแผน 15–24 มิ.ย. 2569
+  </div>
+  <div class="sticky-note" id="sticky-note-en" style="display:none">
+    <strong>Read all details?</strong><br>Enrollment period: 15–24 Jun 2026
+  </div>
+  <a href="plan_selection_form.html" class="sticky-btn" id="sticky-btn">
+    <span id="sticky-btn-text-th">เลือกแผนสวัสดิการ</span>
+    <span id="sticky-btn-text-en" style="display:none">Select Your Plan</span>
+    <span class="arrow">→</span>
+  </a>
+</div>
+
+
+<div class="sticky-bar">
+  <div class="sticky-note" id="sticky-note-th">
+    <strong>อ่านรายละเอียดครบแล้ว?</strong><br>กำหนดเลือกแผน 15&#8211;24 มิ.ย. 2569
+  </div>
+  <div class="sticky-note" id="sticky-note-en" style="display:none">
+    <strong>Read all details?</strong><br>Enrollment: 15&#8211;24 Jun 2026
+  </div>
+  <a href="plan_selection_form.html" class="sticky-btn">
+    <span id="sticky-btn-th">&#127973; เลือกแผนสวัสดิการ</span>
+    <span id="sticky-btn-en" style="display:none">&#127973; Select Your Plan</span>
+    <span class="arrow">&#8594;</span>
+  </a>
+</div>
+
+</body>
+</html>
