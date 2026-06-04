@@ -242,6 +242,22 @@ body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--light);color:v
   .step-num{width:20px;height:20px;font-size:9px;}
 }
 
+
+input[type="date"].form-input {
+  appearance: auto;
+  -webkit-appearance: auto;
+  font-family: "IBM Plex Sans Thai", sans-serif;
+  font-size: 16px;
+  color: var(--dark);
+}
+input[type="date"].form-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 2px;
+}
+@media(max-width:600px) {
+  input[type="date"].form-input { font-size: 16px; padding: 12px 14px; }
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -342,11 +358,16 @@ body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--light);color:v
           </div>
 
           <div class="form-group">
-            <label class="form-label">วันเดือนปีเกิด <span class="sub">Date of Birth (Auto)</span></label>
-            <div id="emp-dob-display" style="padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--light);font-size:13.5px;color:var(--dark);min-height:42px;">
-              <span id="emp-dob-val" style="color:var(--dark)"></span>
+            <label class="form-label">วันเดือนปีเกิด <span class="req">*</span> <span class="sub">Date of Birth</span></label>
+            <input type="date" id="emp-dob-picker" class="form-input"
+              min="1940-01-01" max="2010-12-31"
+              onchange="onDobChange(this)" autocomplete="off"
+              style="max-width:280px;cursor:pointer;">
+            <div style="font-size:11px;color:var(--gray);margin-top:4px;">
+              &#9888; กรุณาเลือกปี <strong>ค.ศ.</strong> (Christian Era) &nbsp;|&nbsp; เช่น เกิดปี พ.ศ. 2526 = ค.ศ. 1983
             </div>
             <input type="hidden" id="emp-dob" value="">
+            <div class="field-msg" id="dob-msg"></div>
           </div>
 
           <div class="form-group">
@@ -648,6 +669,23 @@ function updateSummary() {
   const empName = document.getElementById('emp-name').value.trim();
   const dept    = document.getElementById('emp-dept').value;
   const phone   = document.getElementById('emp-phone').value.trim();
+  const dobInput = document.getElementById('emp-dob').value.trim();
+
+  // Validate DOB entered matches DB
+  if (!dobInput || dobInput.length < 10) {
+    document.getElementById('dob-msg').textContent = 'กรุณากรอกวันเดือนปีเกิด (DD/MM/YYYY)';
+    document.getElementById('dob-msg').className = 'field-msg err';
+    document.getElementById('emp-dob').className = 'form-input error';
+    valid = false;
+  } else if (window._expectedDob && dobInput !== window._expectedDob) {
+    document.getElementById('dob-msg').textContent = 'วันเดือนปีเกิดไม่ตรงกับข้อมูล กรุณาตรวจสอบอีกครั้ง / Date of birth does not match our records';
+    document.getElementById('dob-msg').className = 'field-msg err';
+    document.getElementById('emp-dob').className = 'form-input error';
+    valid = false;
+  } else {
+    document.getElementById('dob-msg').textContent = '';
+    document.getElementById('emp-dob').className = 'form-input';
+  }
   const idRaw   = document.getElementById('national-id').value;
   const idMask  = idRaw.length === 5 ? 'X-XXXX-XXXXX-' + idRaw.slice(0,2) + '-' + idRaw[2] : '–';
   const p = PLAN_NAMES[selectedPlan];
@@ -708,7 +746,8 @@ function checkConsent() {
     && document.getElementById('emp-id').value.trim()
     && document.getElementById('emp-name').value.trim()
     && document.getElementById('emp-dept').value.trim()
-    && document.getElementById('emp-phone').value.trim();
+    && document.getElementById('emp-phone').value.trim()
+    && document.getElementById('emp-dob').value.trim().length === 10;
   document.getElementById('submit-btn').disabled = !ok;
 }
 
@@ -937,23 +976,15 @@ function autoFillEmployee(empId) {
         deptEn.textContent  = e.deptEn;
         nameHid.value       = e.fullNameEn;
         deptHid.value       = e.deptEn;
-        var rawDob = e.dob || '';
-        var niceDate = rawDob;
-        if (rawDob && rawDob.indexOf('GMT') > -1) {
-          var d = new Date(rawDob);
-          var dd = String(d.getDate()).padStart(2,'0');
-          var mm = String(d.getMonth()+1).padStart(2,'0');
-          var yy = d.getFullYear();
-          niceDate = dd + '/' + mm + '/' + yy;
-        }
-        document.getElementById('emp-dob-val').textContent = niceDate;
-        document.getElementById('emp-dob').value = niceDate;
+        // DOB is entered manually by employee - not auto-filled for security
         document.getElementById('emp-jobtitle-th').textContent = e.jobTitleTh || '';
         document.getElementById('emp-jobtitle-en').textContent = e.jobTitleEn || '';
         document.getElementById('emp-jobtitle').value = e.jobTitleEn || '';
         nameMsg.textContent = '';
         deptMsg.textContent = '';
         document.getElementById('empid-msg').textContent = 'พบข้อมูลพนักงาน / Employee found';
+        // Store expected DOB for validation at submit (not shown to user)
+        window._expectedDob = e.dob || '';
         document.getElementById('empid-msg').className   = 'field-msg ok';
         document.getElementById('emp-id').className      = 'form-input success';
       } else if (j.code === 404) {
@@ -961,8 +992,8 @@ function autoFillEmployee(empId) {
         nameEn.textContent = 'Employee ID not found';
         nameHid.value = '';
         deptHid.value = '';
-        document.getElementById('emp-dob-val').textContent = '';
         document.getElementById('emp-dob').value = '';
+        var p = document.getElementById('emp-dob-picker'); if(p) p.value = '';
         document.getElementById('emp-jobtitle-th').textContent = '';
         document.getElementById('emp-jobtitle-en').textContent = '';
         document.getElementById('emp-jobtitle').value = '';
@@ -981,6 +1012,25 @@ function autoFillEmployee(empId) {
       nameTh.textContent = '(ออฟไลน์ / Offline — กรุณาลองใหม่)';
       nameHid.value = '';
     });
+}
+
+// Convert date picker value (YYYY-MM-DD) to DD/MM/YYYY for comparison
+function onDobChange(picker) {
+  var val = picker.value; // YYYY-MM-DD
+  var hiddenDob = document.getElementById('emp-dob');
+  var msg = document.getElementById('dob-msg');
+  if (!val) {
+    hiddenDob.value = '';
+    msg.textContent = '';
+    checkConsent();
+    return;
+  }
+  var parts = val.split('-');
+  var formatted = parts[2] + '/' + parts[1] + '/' + parts[0]; // DD/MM/YYYY
+  hiddenDob.value = formatted;
+  msg.textContent = '';
+  picker.className = 'form-input';
+  checkConsent();
 }
 
 // Live validate employee ID format
