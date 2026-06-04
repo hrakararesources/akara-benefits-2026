@@ -1130,6 +1130,13 @@ function validateEmpIdLive(input) {
 
 var _lastPayload = {};
 
+function resetSaveBtn() {
+  var btn = document.getElementById('btn-save-img');
+  var msg = document.getElementById('img-saving-msg');
+  if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
+  if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
+}
+
 function saveAsImage() {
   var target = document.getElementById('page-success');
   if (!target) { alert('ไม่พบหน้าสำหรับบันทึก'); return; }
@@ -1139,6 +1146,9 @@ function saveAsImage() {
   if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span> <span>กำลังสร้างรูป...</span>'; }
   if (msg) { msg.textContent = 'กำลังสร้างรูปภาพ...'; msg.style.display = 'block'; }
 
+  // Auto-hide msg after 5 seconds no matter what
+  var safetyTimer = setTimeout(resetSaveBtn, 5000);
+
   html2canvas(target, {
     scale: 2,
     useCORS: true,
@@ -1147,33 +1157,49 @@ function saveAsImage() {
     width: target.scrollWidth,
     height: target.scrollHeight
   }).then(function(canvas) {
+    clearTimeout(safetyTimer);
     var empId = _lastPayload.empId || 'benefit';
     var filename = 'Akara-Benefits-' + empId + '.png';
+    var dataUrl = canvas.toDataURL('image/png');
 
-    // Try native share (mobile)
-    canvas.toBlob(function(blob) {
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [new File([blob], filename, { type: 'image/png' })] })) {
-        navigator.share({
-          title: 'Akara Benefits - การเลือกแผนสวัสดิการ',
-          files: [new File([blob], filename, { type: 'image/png' })]
-        }).catch(function() { downloadCanvas(canvas, filename); });
-      } else {
-        downloadCanvas(canvas, filename);
-      }
-      if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
-      if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
-    });
-  }).catch(function(err) {
+    // Reset UI immediately before share/download
+    resetSaveBtn();
+
+    // Try native share with image file (mobile)
+    if (navigator.share && navigator.canShare) {
+      canvas.toBlob(function(blob) {
+        var file = new File([blob], filename, { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          navigator.share({
+            title: 'Akara Benefits',
+            files: [file]
+          }).catch(function() {
+            // Share cancelled or failed - try download
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        } else {
+          downloadCanvas(dataUrl, filename);
+        }
+      });
+    } else {
+      downloadCanvas(dataUrl, filename);
+    }
+  }).catch(function() {
+    clearTimeout(safetyTimer);
+    resetSaveBtn();
     alert('ไม่สามารถสร้างรูปภาพได้ กรุณา Screenshot หน้าจอแทน');
-    if (btn) { btn.disabled = false; btn.innerHTML = '<span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>'; }
-    if (msg) { msg.style.display = 'none'; msg.textContent = ''; }
   });
 }
 
-function downloadCanvas(canvas, filename) {
+function downloadCanvas(dataUrl, filename) {
   var link = document.createElement('a');
   link.download = filename;
-  link.href = canvas.toDataURL('image/png');
+  link.href = dataUrl;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
