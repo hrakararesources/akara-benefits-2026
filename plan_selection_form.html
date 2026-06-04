@@ -358,13 +358,32 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
           </div>
 
           <div class="form-group">
-            <label class="form-label">วันเดือนปีเกิด <span class="req">*</span> <span class="sub">Date of Birth</span></label>
-            <input type="date" id="emp-dob-picker" class="form-input"
-              min="1940-01-01" max="2010-12-31"
-              onchange="onDobChange(this)" autocomplete="off"
-              style="max-width:280px;cursor:pointer;">
-            <div style="font-size:11px;color:var(--gray);margin-top:4px;">
-              &#9888; กรุณาเลือกปี <strong>ค.ศ.</strong> (Christian Era) &nbsp;|&nbsp; เช่น เกิดปี พ.ศ. 2526 = ค.ศ. 1983
+            <label class="form-label">วันเดือนปีเกิด <span class="req">*</span> <span class="sub">Date of Birth · ปี ค.ศ.</span></label>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <select id="dob-day" class="form-input" style="flex:1;min-width:80px;max-width:100px;" onchange="onDobSelect()">
+                <option value="">วัน</option>
+              </select>
+              <select id="dob-month" class="form-input" style="flex:1;min-width:100px;max-width:140px;" onchange="onDobSelect()">
+                <option value="">เดือน</option>
+                <option value="01">มกราคม (Jan)</option>
+                <option value="02">กุมภาพันธ์ (Feb)</option>
+                <option value="03">มีนาคม (Mar)</option>
+                <option value="04">เมษายน (Apr)</option>
+                <option value="05">พฤษภาคม (May)</option>
+                <option value="06">มิถุนายน (Jun)</option>
+                <option value="07">กรกฎาคม (Jul)</option>
+                <option value="08">สิงหาคม (Aug)</option>
+                <option value="09">กันยายน (Sep)</option>
+                <option value="10">ตุลาคม (Oct)</option>
+                <option value="11">พฤศจิกายน (Nov)</option>
+                <option value="12">ธันวาคม (Dec)</option>
+              </select>
+              <select id="dob-year" class="form-input" style="flex:1;min-width:100px;max-width:120px;" onchange="onDobSelect()">
+                <option value="">ปี ค.ศ.</option>
+              </select>
+            </div>
+            <div style="font-size:11px;color:var(--gray);margin-top:5px;">
+              เลือกปี <strong>ค.ศ.</strong> เช่น เกิดปี พ.ศ. 2526 ให้เลือก ค.ศ. 1983 (พ.ศ. ลบ 543)
             </div>
             <input type="hidden" id="emp-dob" value="">
             <div class="field-msg" id="dob-msg"></div>
@@ -992,8 +1011,7 @@ function autoFillEmployee(empId) {
         nameEn.textContent = 'Employee ID not found';
         nameHid.value = '';
         deptHid.value = '';
-        document.getElementById('emp-dob').value = '';
-        var p = document.getElementById('emp-dob-picker'); if(p) p.value = '';
+        clearDobDropdowns();
         document.getElementById('emp-jobtitle-th').textContent = '';
         document.getElementById('emp-jobtitle-en').textContent = '';
         document.getElementById('emp-jobtitle').value = '';
@@ -1014,23 +1032,51 @@ function autoFillEmployee(empId) {
     });
 }
 
-// Convert date picker value (YYYY-MM-DD) to DD/MM/YYYY for comparison
-function onDobChange(picker) {
-  var val = picker.value; // YYYY-MM-DD
-  var hiddenDob = document.getElementById('emp-dob');
-  var msg = document.getElementById('dob-msg');
-  if (!val) {
-    hiddenDob.value = '';
-    msg.textContent = '';
-    checkConsent();
-    return;
+// Init DOB dropdowns
+function initDobDropdowns() {
+  var dayEl = document.getElementById('dob-day');
+  var yearEl = document.getElementById('dob-year');
+  if (!dayEl || !yearEl) return;
+  // Days 1-31
+  for (var d = 1; d <= 31; d++) {
+    var opt = document.createElement('option');
+    opt.value = (d < 10 ? '0' : '') + d;
+    opt.textContent = d;
+    dayEl.appendChild(opt);
   }
-  var parts = val.split('-');
-  var formatted = parts[2] + '/' + parts[1] + '/' + parts[0]; // DD/MM/YYYY
-  hiddenDob.value = formatted;
-  msg.textContent = '';
-  picker.className = 'form-input';
+  // Years 1940-2010 CE (descending)
+  for (var y = 2010; y >= 1940; y--) {
+    var opt2 = document.createElement('option');
+    opt2.value = y;
+    opt2.textContent = y + ' (' + (y + 543) + ' พ.ศ.)';
+    yearEl.appendChild(opt2);
+  }
+}
+
+function onDobSelect() {
+  var d = document.getElementById('dob-day').value;
+  var m = document.getElementById('dob-month').value;
+  var y = document.getElementById('dob-year').value;
+  var hidden = document.getElementById('emp-dob');
+  var msg = document.getElementById('dob-msg');
+  if (d && m && y) {
+    hidden.value = d + '/' + m + '/' + y;
+    msg.textContent = '';
+    msg.className = 'field-msg';
+  } else {
+    hidden.value = '';
+  }
   checkConsent();
+}
+
+// Clear DOB dropdowns
+function clearDobDropdowns() {
+  var ids = ['dob-day','dob-month','dob-year'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) el.value = '';
+  }
+  document.getElementById('emp-dob').value = '';
 }
 
 // Live validate employee ID format
