@@ -167,10 +167,10 @@ body{font-family:'IBM Plex Sans Thai',sans-serif;background:var(--light);color:v
 .success-title{font-size:22px;font-weight:700;color:var(--green);margin-bottom:4px;}
 .success-title-en{font-size:13px;color:var(--gray);margin-bottom:24px;}
 .success-detail{background:var(--light);border-radius:10px;padding:18px 20px;text-align:left;margin-bottom:20px;}
-.success-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--border);font-size:13px;}
+.success-row{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--border);font-size:13px;gap:8px;}
 .success-row:last-child{border-bottom:none;}
-.success-row .lbl{color:var(--gray);}
-.success-row .val{font-weight:600;color:var(--dark);}
+.success-row .lbl{color:var(--gray);flex-shrink:0;max-width:48%;font-size:12px;}
+.success-row .val{font-weight:600;color:var(--dark);text-align:right;word-break:break-word;}
 .success-plan-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700;}
 .badge-p1{background:var(--blue-l);color:var(--blue);}
 .badge-p2{background:var(--green-l);color:var(--green);}
@@ -293,12 +293,16 @@ body.ss-mode .steps,
 body.ss-mode .step-sep,
 body.ss-mode .success-actions,
 body.ss-mode .success-note,
-body.ss-mode #success-ts-row {
+body.ss-mode #success-ts-row,
+body.ss-mode #ss-tip {
   display:none !important;
 }
 body.ss-mode #page-success {
   background:#fff;
-  padding:8px;
+  padding:4px 0;
+}
+body.ss-mode .main {
+  padding: 0 12px !important;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -603,6 +607,16 @@ body.ss-mode #page-success {
       <div class="success-title">บันทึกการเลือกแผนเรียบร้อย</div>
       <div class="success-title-en">Your Plan Selection Has Been Recorded</div>
       <div class="success-detail" id="success-detail"></div>
+      <div id="ss-banner" style="background:#E4F5EE;border:1px solid #B0DFCA;border-radius:10px;padding:12px 14px;margin-bottom:14px;text-align:center;font-size:13px;color:#0A6B47;display:none;">
+        <div style="font-size:15px;margin-bottom:4px;">📸 พร้อม Screenshot!</div>
+        <div style="font-size:12px;color:#138A5E;">
+          <strong>Android:</strong> กด Volume&#9660; + Power พร้อมกัน<br>
+          <strong>iPhone:</strong> กด Side + Volume&#9650; พร้อมกัน
+        </div>
+        <button onclick="exitScreenshotMode()" style="margin-top:10px;padding:7px 18px;background:#0A6B47;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;">
+          ✕ ออกจากโหมด Screenshot
+        </button>
+      </div>
       <div class="success-note">
         ✉️ ฝ่าย HR ได้รับข้อมูลการเลือกแผนของท่านแล้ว · HR has been notified.<br>
         🔒 การเลือกแผนนี้เป็นที่สิ้นสุด ไม่สามารถเปลี่ยนแปลงได้ · This selection is final.<br>
@@ -1178,18 +1192,18 @@ function enterScreenshotMode() {
 function exitScreenshotMode() {
   document.getElementById('screenshot-guide').classList.remove('show');
   document.body.classList.remove('ss-mode');
+  var banner = document.getElementById('ss-banner');
+  if (banner) banner.style.display = 'none';
 }
 
 function startScreenshot() {
-  // Hide guide
   document.getElementById('screenshot-guide').classList.remove('show');
-  // Enter clean screenshot mode
   document.body.classList.add('ss-mode');
-  // Show tip after short delay
-  setTimeout(function() {
-    var tip = document.getElementById('ss-tip');
-    if (tip) tip.style.display = 'block';
-  }, 300);
+  // Show banner
+  var banner = document.getElementById('ss-banner');
+  if (banner) banner.style.display = 'block';
+  // Scroll to top of success page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function resetSaveBtn() {
