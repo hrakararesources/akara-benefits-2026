@@ -259,7 +259,7 @@ body{
 .pl-val.none{color:#CCC;font-weight:400;font-size:9.5px;font-style:italic;}
 
 /* ─── COMPARISON TABLE ─── */
-.cmp-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;}
+.cmp-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px;table-layout:fixed;}
 .cmp-table thead th{
   padding:10px 12px;text-align:center;
   background:var(--navy);color:#fff;font-size:11px;font-weight:600;
@@ -772,19 +772,19 @@ body{padding-bottom:90px!important;}
     <table class="cmp-table">
       <thead>
         <tr>
-          <th style="width:36%">
+          <th style="width:28%">
             <span data-lang="th">รายการสิทธิประโยชน์</span>
             <span data-lang="en">Benefit Item</span>
           </th>
-          <th class="h-p1">
+          <th class="h-p1" style="width:24%">
             <span data-lang="th">แผน 1<br><small>แผนปัจจุบัน</small></span>
             <span data-lang="en">Plan I<br><small>Current Plan</small></span>
           </th>
-          <th class="h-p2">
+          <th class="h-p2" style="width:24%">
             <span data-lang="th">แผน 2<br><small>แผนเน้นความคุ้มครอง</small></span>
             <span data-lang="en">Plan II<br><small>Care Plan</small></span>
           </th>
-          <th class="h-p3">
+          <th class="h-p3" style="width:24%">
             <span data-lang="th">แผน 3<br><small>แผนสุขภาพดีและยืดหยุ่น</small></span>
             <span data-lang="en">Plan III<br><small>Well-Being Plan</small></span>
           </th>
@@ -947,6 +947,12 @@ body{padding-bottom:90px!important;}
         <div class="wb-title-en" data-lang="en">Plan III only · Per employee per annum</div>
         <div class="wb-note" data-lang="th">ใช้ได้เฉพาะรายการที่บริษัทกำหนดเท่านั้น ดูรายละเอียดด้านล่าง</div>
         <div class="wb-note" data-lang="en">May be used exclusively for company-approved categories listed below.</div>
+        <div class="wb-note" style="margin-top:6px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.4);border-radius:6px;padding:5px 10px;" data-lang="th">
+          &#9888; <strong>สิทธินี้ใช้ได้เฉพาะตัวพนักงานเท่านั้น</strong> ไม่ครอบคลุมคู่สมรสหรือบุตร
+        </div>
+        <div class="wb-note" style="margin-top:6px;background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.4);border-radius:6px;padding:5px 10px;" data-lang="en">
+          &#9888; <strong>This benefit is for the employee only</strong> — does not cover spouse or dependents.
+        </div>
       </div>
     </div>
 
