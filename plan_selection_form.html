@@ -822,7 +822,11 @@ function checkConsent() {
     && document.getElementById('emp-name').value.trim()
     && document.getElementById('emp-dept').value.trim()
     && document.getElementById('emp-phone').value.trim()
-    && document.getElementById('emp-dob').value.trim().length === 10;
+    && document.getElementById('emp-dob').value.trim().length === 10
+    && (
+      !window._expectedDob ||
+      document.getElementById('emp-dob').value.trim() === window._expectedDob
+    );
   document.getElementById('submit-btn').disabled = !ok;
 }
 
@@ -889,6 +893,18 @@ async function submitForm() {
   if (isSubmitting) return;
   hideAlert();
   if (!validateAll()) return;
+
+  // Hard block: DOB must match expected
+  var dobVal = document.getElementById('emp-dob').value.trim();
+  if (window._expectedDob && dobVal !== window._expectedDob) {
+    document.getElementById('dob-msg').textContent = 'วันเดือนปีเกิดไม่ตรงกับข้อมูล ไม่สามารถยืนยันได้ / Date of birth does not match — cannot proceed';
+    document.getElementById('dob-msg').className = 'field-msg err';
+    document.getElementById('emp-dob').className = 'form-input error';
+    // Scroll to DOB field
+    var dobEl = document.getElementById('emp-dob-picker') || document.getElementById('emp-dob');
+    if (dobEl) dobEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
 
   isSubmitting = true;
   const btn = document.getElementById('submit-btn');
