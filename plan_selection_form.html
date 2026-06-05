@@ -258,6 +258,48 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
 @media(max-width:600px) {
   input[type="date"].form-input { font-size: 16px; padding: 12px 14px; }
 }
+
+#screenshot-guide{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.92);z-index:9998;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+#screenshot-guide.show{display:flex;}
+#screenshot-content{
+  background:#fff;border-radius:16px;padding:20px 16px;
+  max-width:340px;width:100%;
+}
+.ss-step{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;border-bottom:1px solid #eee;
+  text-align:left;font-size:13px;color:#333;
+}
+.ss-step:last-child{border-bottom:none;}
+.ss-num{
+  width:28px;height:28px;border-radius:50%;
+  background:#0F2D5C;color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ss-btn{
+  margin-top:16px;width:100%;padding:12px;
+  background:#0F2D5C;color:#fff;border:none;border-radius:8px;
+  font-size:14px;font-weight:600;cursor:pointer;
+}
+/* Hide non-essential elements in screenshot mode */
+body.ss-mode .header,
+body.ss-mode .steps,
+body.ss-mode .step-sep,
+body.ss-mode .success-actions,
+body.ss-mode .success-note,
+body.ss-mode #success-ts-row {
+  display:none !important;
+}
+body.ss-mode #page-success {
+  background:#fff;
+  padding:8px;
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -571,11 +613,10 @@ input[type="date"].form-input::-webkit-calendar-picker-indicator {
         <button class="print-btn" onclick="window.print()" style="display:flex;align-items:center;gap:6px;">
           <span>🖨️</span> <span>พิมพ์ / Print</span>
         </button>
-        <button class="print-btn" id="btn-save-img" onclick="saveAsImage()" style="background:#138A5E;display:flex;align-items:center;gap:6px;">
-          <span>📷</span> <span>บันทึกเป็นรูป / Save Image</span>
+        <button class="print-btn" id="btn-screenshot-mode" onclick="enterScreenshotMode()" style="background:#138A5E;display:flex;align-items:center;gap:6px;">
+          <span>📷</span> <span>Screenshot / บันทึกหน้าจอ</span>
         </button>
       </div>
-      <p id="img-saving-msg" style="font-size:11px;color:var(--gray);margin-top:8px;display:none;"></p>
     </div>
   </div>
 
@@ -1130,6 +1171,27 @@ function validateEmpIdLive(input) {
 
 var _lastPayload = {};
 
+function enterScreenshotMode() {
+  document.getElementById('screenshot-guide').classList.add('show');
+}
+
+function exitScreenshotMode() {
+  document.getElementById('screenshot-guide').classList.remove('show');
+  document.body.classList.remove('ss-mode');
+}
+
+function startScreenshot() {
+  // Hide guide
+  document.getElementById('screenshot-guide').classList.remove('show');
+  // Enter clean screenshot mode
+  document.body.classList.add('ss-mode');
+  // Show tip after short delay
+  setTimeout(function() {
+    var tip = document.getElementById('ss-tip');
+    if (tip) tip.style.display = 'block';
+  }, 300);
+}
+
 function resetSaveBtn() {
   var btn = document.getElementById('btn-save-img');
   var msg = document.getElementById('img-saving-msg');
@@ -1256,6 +1318,37 @@ function downloadCanvas(dataUrl, filename) {
 
 
 </script>
+<div id="screenshot-guide">
+  <div id="screenshot-content">
+    <div style="font-size:18px;font-weight:700;color:#0F2D5C;margin-bottom:4px;">📱 บันทึกหน้าจอ</div>
+    <div style="font-size:12px;color:#6B7280;margin-bottom:16px;">Screenshot this page</div>
+
+    <div class="ss-step">
+      <div class="ss-num">1</div>
+      <div>กดปุ่ม <strong>ปิด Guide</strong> ด้านล่าง หน้าจอจะแสดงเฉพาะข้อมูลสรุป</div>
+    </div>
+    <div class="ss-step">
+      <div class="ss-num">2</div>
+      <div>
+        <strong>Android:</strong> กด <strong>Volume ลง + Power</strong> พร้อมกัน<br>
+        <strong>iPhone:</strong> กด <strong>Side + Volume ขึ้น</strong> พร้อมกัน<br>
+        <span style="font-size:11px;color:#999">(หรือใช้ Assistive Touch)</span>
+      </div>
+    </div>
+    <div class="ss-step">
+      <div class="ss-num">3</div>
+      <div>รูปจะบันทึกลง Gallery อัตโนมัติ</div>
+    </div>
+
+    <button class="ss-btn" onclick="startScreenshot()">
+      ✓ เข้าใจแล้ว — ปิด Guide เพื่อ Screenshot
+    </button>
+    <button onclick="exitScreenshotMode()" style="margin-top:8px;width:100%;padding:10px;background:none;border:1px solid #ddd;border-radius:8px;font-size:13px;cursor:pointer;color:#666;">
+      ยกเลิก / Cancel
+    </button>
+  </div>
+</div>
+
 <script>
 // Init DOB dropdowns after DOM is ready
 (function() {
